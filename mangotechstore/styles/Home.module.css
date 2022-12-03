@@ -1,5 +1,10 @@
+.homeNavbar {
+  max-width: 100% !important;
+}
+
 .container {
-  padding: 0 2rem;
+  width: 100%;
+  max-width: 100% !important;
 }
 
 .main {
@@ -70,7 +75,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 800px;
+  max-width: 100%;
 }
 
 .card {
@@ -82,7 +87,7 @@
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
+  max-width: 100%;
 }
 
 .card:hover,
