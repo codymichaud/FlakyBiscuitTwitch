@@ -23,7 +23,7 @@ export default function Nav() {
         variant={variant}
         css={{
           borderBottom: '2px solid transparent',
-          borderImage: 'linear-gradient(0.25turn, $purple600, $pink600, $blue600)',
+          borderImage: `linear-gradient(0.25turn, ${theme.colors.purple600.value}, ${theme.colors.pink600.value}, ${theme.colors.blue600.value})`,
           borderImageSlice: 1,
         }}
         // border: '$space$1 solid transparent',
@@ -33,7 +33,7 @@ export default function Nav() {
           <Text h1
             size={30}
             css={{
-              textGradient: "45deg, $purple600 40%, $pink600 70%, $blue600 90%",
+              textGradient: `45deg, ${theme.colors.purple600.value} 40%, ${theme.colors.pink600.value} 70%, ${theme.colors.blue600.value} 90%`,
             }}
             weight="bold"
             b color="inherit" 
@@ -50,7 +50,6 @@ export default function Nav() {
           </Text>
         </Navbar.Brand>
         <Navbar.Content className={styles.container} hideIn="xs">
-          {/* <Navbar.Link href="#">Products</Navbar.Link> */}
           <Dropdown isBordered>
             <Navbar.Item>
               <Dropdown.Button
@@ -62,18 +61,19 @@ export default function Nav() {
                   svg: { pe: "none" },
                   // borderRadius: '$xs', // radii.xs
                   // border: '$space$1 solid transparent',
-                  color: '$blue800',
+                  color: theme.colors.blue800.value,
                   height: '$12', // space[12]
-                  boxShadow: '$md', // shadows.md
+                //   boxShadow: '$md', // shadows.md
+                dropShadow: '$lg',
                   '&:hover': {
-                    background: '$pink100',
-                    color: '$pink800',
+                    background: theme.colors.pink100.value,
+                    color: theme.colors.pink800.value,
                   },
                   '&:active': {
-                    background: '$pink200',
+                    background: theme.colors.pink200.value,
                   },
                   '&:focus': {
-                    borderColor: '$pink400',
+                    borderColor: theme.colors.pink400.value,
                   },
                 }}
                 // iconRight={icons.chevron}
@@ -84,6 +84,7 @@ export default function Nav() {
             </Navbar.Item>
             <Dropdown.Menu
               aria-label="ACME features"
+              isVirtualized
               css={{
                 $$dropdownMenuWidth: "340px",
                 $$dropdownItemHeight: "70px",
@@ -91,52 +92,51 @@ export default function Nav() {
                   py: "$4",
                   // dropdown item left icon
                   svg: {
-                    color: "$secondary",
+                    color: theme.colors.secondary.value,
                     mr: "$4",
-                  },
-                  // dropdown item title
-                  "& .nextui-dropdown-item-content": {
+                },
+                // dropdown item title
+                "& .nextui-dropdown-item-content": {
                     w: "100%",
                     fontWeight: "$semibold",
-                  },
                 },
-              }}
+            },
+        }}
             >
-              <Dropdown.Item
-                key="autoscaling"
-                showFullDescription
-                description="ACME scales apps to meet user demand, automagically, based on load."
-                // icon={icons.scale}
-              >
-                PC Parts
-              </Dropdown.Item>
-              <Dropdown.Item
-                key="usage_metrics"
-                showFullDescription
-                description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."
-              >
-                Brands
-              </Dropdown.Item>
-              <Dropdown.Item
-                key="production_ready"
-                showFullDescription
-                description="ACME runs on ACME, join us and others serving requests at web scale."
-              >
+                <Dropdown.Item
+                key="core_components"
+                >
+                Core Components
+                </Dropdown.Item>
+                <Dropdown.Item
+                key="storage"
+                >
+                Storage Devices
+                </Dropdown.Item>
+                <Dropdown.Item
+                key="accessories"
+                >
                 Accessories
-              </Dropdown.Item>
-              <Dropdown.Item
-                key="99_uptime"
-                showFullDescription
-                description="Applications stay on the grid with high availability and high uptime guarantees."
-              >
-                Computers
-              </Dropdown.Item>
-              <Dropdown.Item
-                key="supreme_support"
-                showFullDescription
-                description="Overcome any challenge with a supporting team ready to respond."
-              >
+                </Dropdown.Item>
+                <Dropdown.Item
+                key="refurbished"
+                >
+                Refurbished
+                </Dropdown.Item>
+                <Dropdown.Item
+                key="networking"
+                >
                 Networking
+                </Dropdown.Item>
+              <Dropdown.Item
+                key="gaming"
+              >
+                Gaming
+              </Dropdown.Item>
+              <Dropdown.Item
+                key="electronics"
+              >
+                Electronics
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -149,24 +149,25 @@ export default function Nav() {
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
-              color: '$blue800',
+              color: theme.colors.blue800.value,
               height: '$12', // space[12]
-              boxShadow: '$md', // shadows.md
-              '&:hover': {
-                background: '$pink100',
-                color: '$pink800',
-              },
-              '&:active': {
-                background: '$pink200',
-              },
-              '&:focus': {
-                borderColor: '$pink400',
-              },
+              dropShadow: '$lg',
+                '&:hover': {
+                background: theme.colors.pink100.value,
+                color: theme.colors.pink800.value,
+                },
+                '&:active': {
+                background: theme.colors.pink200.value,
+                },
+                '&:focus': {
+                borderColor: theme.colors.pink400.value,
+                },
             }}
           >
-            Service and Repair
+            Best Sellers
           </Navbar.Link>
-          <Navbar.Link 
+          <Navbar.Link  
+            isActive
             href="#"
             css={{
               px: 0,
@@ -174,24 +175,25 @@ export default function Nav() {
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
-              color: '$blue800',
+              color: theme.colors.blue800.value,
               height: '$12', // space[12]
-              boxShadow: '$md', // shadows.md
-              '&:hover': {
-                background: '$pink100',
-                color: '$pink800',
-              },
-              '&:active': {
-                background: '$pink200',
-              },
-              '&:focus': {
-                borderColor: '$pink400',
-              },
+              dropShadow: '$lg',
+                '&:hover': {
+                background: theme.colors.pink100.value,
+                color: theme.colors.pink800.value,
+                },
+                '&:active': {
+                background: theme.colors.pink200.value,
+                },
+                '&:focus': {
+                borderColor: theme.colors.pink400.value,
+                },
             }}
           >
             All Products
           </Navbar.Link>
-          <Navbar.Link
+          <Navbar.Link 
+            isActive
             href="#"
             css={{
               px: 0,
@@ -199,27 +201,28 @@ export default function Nav() {
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
-              color: '$blue800',
+              color: theme.colors.blue800.value,
               height: '$12', // space[12]
-              boxShadow: '$md', // shadows.md
-              '&:hover': {
-                background: '$pink100',
-                color: '$pink800',
-              },
-              '&:active': {
-                background: '$pink200',
-              },
-              '&:focus': {
-                borderColor: '$pink400',
-              },
+              dropShadow: '$lg',
+                '&:hover': {
+                background: theme.colors.pink100.value,
+                color: theme.colors.pink800.value,
+                },
+                '&:active': {
+                background: theme.colors.pink200.value,
+                },
+                '&:focus': {
+                borderColor: theme.colors.pink400.value,
+                },
             }}
           >
-            Company
+            Computer Systems
           </Navbar.Link>
         </Navbar.Content>
         <DarkModeToggler />
         <Navbar.Content>
-          <Navbar.Link 
+          <Navbar.Link  
+            isActive
             color="inherit" 
             href="#"
             css={{
@@ -228,24 +231,25 @@ export default function Nav() {
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
-              color: '$blue800',
+              color: theme.colors.blue800.value,
               height: '$12', // space[12]
-              boxShadow: '$md', // shadows.md
-              '&:hover': {
-                background: '$pink100',
-                color: '$pink800',
-              },
-              '&:active': {
-                background: '$pink200',
-              },
-              '&:focus': {
-                borderColor: '$pink400',
-              },
+              dropShadow: '$lg',
+                '&:hover': {
+                background: theme.colors.pink100.value,
+                color: theme.colors.pink800.value,
+                },
+                '&:active': {
+                background: theme.colors.pink200.value,
+                },
+                '&:focus': {
+                borderColor: theme.colors.pink400.value,
+                },
             }}
           >
             {loggedIn ? <FontAwesomeIcon size='xl' icon={faRightFromBracket} /> : <FontAwesomeIcon size='xl' icon={faRightToBracket} /> }
           </Navbar.Link>
-          <Navbar.Link
+          <Navbar.Link 
+            isActive
             color='inherit' 
             href='#'
             css={{
@@ -254,19 +258,19 @@ export default function Nav() {
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
-              color: '$blue800',
+              color: theme.colors.blue800.value,
               height: '$12', // space[12]
-              boxShadow: '$md', // shadows.md
-              '&:hover': {
-                background: '$pink100',
-                color: '$pink800',
-              },
-              '&:active': {
-                background: '$pink200',
-              },
-              '&:focus': {
-                borderColor: '$pink400',
-              },
+              dropShadow: '$lg',
+                '&:hover': {
+                background: theme.colors.pink100.value,
+                color: theme.colors.pink800.value,
+                },
+                '&:active': {
+                background: theme.colors.pink200.value,
+                },
+                '&:focus': {
+                borderColor: theme.colors.pink400.value,
+                },
             }}
           >
             <FontAwesomeIcon
