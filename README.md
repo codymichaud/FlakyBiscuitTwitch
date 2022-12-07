@@ -8,7 +8,7 @@
 - [Screenshot](#screenshot)
 
 ## Description
-An interactive tech ecommerce store built using React, Next.js 13, NextUi and Tailwind. Users will be able to navigate across the site viewing different catagories of gaming pc items. 
+An interactive tech ecommerce store built using React, Next.js 13 and NextUi. Users will be able to navigate across the site viewing different catagories of gaming pc items. 
 
 ## Running app
 - Clone repo
