@@ -1,5 +1,15 @@
 import styles from '../styles/Home.module.css'
-import { Navbar, Dropdown, Button, Link, Text, Container, createTheme } from "@nextui-org/react";
+import { 
+  Navbar,
+  Dropdown,
+  Button,
+  Link,
+  Text,
+  Modal,
+  Input,
+  Row,
+  Checkbox,
+} from "@nextui-org/react";
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComputer, 
@@ -10,13 +20,24 @@ import { faComputer,
 import { useTheme as useNextTheme } from 'next-themes'
 import { useTheme } from '@nextui-org/react'
 import DarkModeToggler from '../components/DarkModeToggler';
+import LoggedInAvatar from './LoggedInAvatar';
 
 export default function Nav() {
     const [variant, setVariant] = React.useState("static");
     const [loggedIn, setLoggedIn] = React.useState(false);
     const branding = 'Mango Tech Store';
     const  { theme } = useTheme();
-    const { setTheme } = useNextTheme();
+    const [visible, setVisible] = React.useState(false);
+    const handler = () => {
+      setVisible(true);
+      console.log('opened!')
+    };
+
+    const closeHandler = () => {
+      setVisible(false);
+      console.log('closed');
+    };
+
     return (
         <Navbar
         maxWidth='fluid' 
@@ -64,16 +85,14 @@ export default function Nav() {
                   color: theme.colors.blue800.value,
                   height: '$12', // space[12]
                 //   boxShadow: '$md', // shadows.md
-                dropShadow: '$lg',
                   '&:hover': {
-                    background: theme.colors.pink100.value,
-                    color: theme.colors.pink800.value,
+                    color: theme.colors.purple400.value,
                   },
                   '&:active': {
                     background: theme.colors.pink200.value,
                   },
                   '&:focus': {
-                    borderColor: theme.colors.pink400.value,
+                    borderColor: theme.colors.pink600.value,
                   },
                 }}
                 // iconRight={icons.chevron}
@@ -153,7 +172,6 @@ export default function Nav() {
               height: '$12', // space[12]
               dropShadow: '$lg',
                 '&:hover': {
-                background: theme.colors.pink100.value,
                 color: theme.colors.pink800.value,
                 },
                 '&:active': {
@@ -179,7 +197,6 @@ export default function Nav() {
               height: '$12', // space[12]
               dropShadow: '$lg',
                 '&:hover': {
-                background: theme.colors.pink100.value,
                 color: theme.colors.pink800.value,
                 },
                 '&:active': {
@@ -205,7 +222,6 @@ export default function Nav() {
               height: '$12', // space[12]
               dropShadow: '$lg',
                 '&:hover': {
-                background: theme.colors.pink100.value,
                 color: theme.colors.pink800.value,
                 },
                 '&:active': {
@@ -221,33 +237,112 @@ export default function Nav() {
         </Navbar.Content>
         <DarkModeToggler />
         <Navbar.Content>
+          {loggedIn ? (
           <Navbar.Link  
-            isActive
-            color="inherit" 
-            href="#"
-            css={{
-              px: 0,
-              dflex: "center",
-              svg: { pe: "none" },
-              // borderRadius: '$xs', // radii.xs
-              // border: '$space$1 solid transparent',
-              color: theme.colors.blue800.value,
-              height: '$12', // space[12]
-              dropShadow: '$lg',
-                '&:hover': {
-                background: theme.colors.pink100.value,
-                color: theme.colors.pink800.value,
-                },
-                '&:active': {
-                background: theme.colors.pink200.value,
-                },
-                '&:focus': {
-                borderColor: theme.colors.pink400.value,
-                },
-            }}
-          >
-            {loggedIn ? <FontAwesomeIcon size='xl' icon={faRightFromBracket} /> : <FontAwesomeIcon size='xl' icon={faRightToBracket} /> }
+              isActive
+              color="inherit" 
+              href="#"
+              css={{
+                px: 0,
+                dflex: "center",
+                svg: { pe: "none" },
+                // borderRadius: '$xs', // radii.xs
+                // border: '$space$1 solid transparent',
+                color: theme.colors.blue800.value,
+                height: '$12', // space[12]
+                dropShadow: '$lg',
+                  '&:hover': {
+                  color: theme.colors.pink800.value,
+                  },
+                  '&:active': {
+                  background: theme.colors.pink200.value,
+                  },
+                  '&:focus': {
+                  borderColor: theme.colors.pink400.value,
+                  },
+              }}
+            >
+               
+              <LoggedInAvatar />
           </Navbar.Link>
+          ) : (
+            <Navbar.Link  
+              isActive
+              color="inherit" 
+              href="#"
+              onPress={handler}
+              css={{
+                px: 0,
+                dflex: "center",
+                svg: { pe: "none" },
+                // borderRadius: '$xs', // radii.xs
+                // border: '$space$1 solid transparent',
+                color: theme.colors.blue800.value,
+                height: '$12', // space[12]
+                dropShadow: '$lg',
+                  '&:hover': {
+                  color: theme.colors.pink800.value,
+                  },
+                  '&:active': {
+                  background: theme.colors.pink200.value,
+                  },
+                  '&:focus': {
+                  borderColor: theme.colors.pink400.value,
+                  },
+              }}
+            >
+              {visible === true ? (
+                <Modal
+                closeButton
+                aria-labelledby="modal-title"
+                open={visible}
+                onClose={closeHandler}
+              >
+                <Modal.Header>
+                  <Text id="modal-title" size={18}>
+                    Welcome to
+                    <Text b size={18}>
+                       Mango Tech Store
+                    </Text>
+                  </Text>
+                </Modal.Header>
+                <Modal.Body>
+                  <Input
+                    clearable
+                    bordered
+                    fullWidth
+                    color="primary"
+                    size="lg"
+                    placeholder="Email"
+                  />
+                  <Input
+                    clearable
+                    bordered
+                    fullWidth
+                    color="primary"
+                    size="lg"
+                    placeholder="Password"
+                  />
+                  <Row justify="space-between">
+                    <Checkbox>
+                      <Text size={14}>Remember me</Text>
+                    </Checkbox>
+                    <Text size={14}>Forgot password?</Text>
+                  </Row>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button auto flat color="error" onClick={closeHandler}>
+                    Close
+                  </Button>
+                  <Button auto onClick={closeHandler}>
+                    Sign in
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+              ) : ''}
+              <FontAwesomeIcon size='xl' icon={faRightToBracket} />
+          </Navbar.Link>
+          )}
           <Navbar.Link 
             isActive
             color='inherit' 
@@ -261,16 +356,15 @@ export default function Nav() {
               color: theme.colors.blue800.value,
               height: '$12', // space[12]
               dropShadow: '$lg',
-                '&:hover': {
-                background: theme.colors.pink100.value,
+              '&:hover': {
                 color: theme.colors.pink800.value,
-                },
-                '&:active': {
+              },
+              '&:active': {
                 background: theme.colors.pink200.value,
-                },
-                '&:focus': {
+              },
+              '&:focus': {
                 borderColor: theme.colors.pink400.value,
-                },
+              },
             }}
           >
             <FontAwesomeIcon

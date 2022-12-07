@@ -9,7 +9,7 @@ export default function DarkModeToggler() {
     const { setTheme } = useNextTheme();
     const [mounted, setMounted] = useState(false);
     const { isDark, type } = useTheme();
-
+    const  { theme } = useTheme();
     useEffect(() => { setMounted(true) }, []);
 
     if (!mounted) return <></>;
@@ -31,6 +31,7 @@ export default function DarkModeToggler() {
             css={{
             marginRight: '20px',
             marginLeft: '-130px',
+            color: isDark ? theme.colors.secondary.value : '$white600'
             }}
         />
     );

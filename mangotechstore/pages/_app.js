@@ -211,7 +211,7 @@ const darkTheme = createTheme({
       foreground: '#ffffff',
       text: '#ECEDEE',
       white: '#ffffff',
-      $secondary: '#9750DD',
+      secondary: '#9750DD',
 
     }, // optional
     shadows: {
