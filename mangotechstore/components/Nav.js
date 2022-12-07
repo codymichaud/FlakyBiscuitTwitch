@@ -12,6 +12,7 @@ import {
   Grid,
   User,
   Switch,
+  Loading,
 } from "@nextui-org/react";
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,7 +28,7 @@ import { useTheme } from '@nextui-org/react';
 
 export default function Nav() {
     const [variant, setVariant] = React.useState("static");
-    const [loggedIn, setLoggedIn] = React.useState(true);
+    const [loggedIn, setLoggedIn] = React.useState(false);
     const branding = 'Mango Tech Store';
     const  { theme } = useTheme();
     const [visible, setVisible] = React.useState(false);
@@ -56,11 +57,6 @@ export default function Nav() {
         <Navbar
         maxWidth='fluid' 
         variant={variant}
-        css={{
-          borderBottom: '2px solid transparent',
-          borderImage: `linear-gradient(0.25turn, ${theme.colors.purple600.value}, ${theme.colors.pink600.value}, ${theme.colors.blue600.value})`,
-          borderImageSlice: 1,
-        }}
         // border: '$space$1 solid transparent',
       >
         
@@ -96,11 +92,11 @@ export default function Nav() {
                   svg: { pe: "none" },
                   // borderRadius: '$xs', // radii.xs
                   // border: '$space$1 solid transparent',
-                  color: theme.colors.blue800.value,
+                  color: theme.colors.purple500.value,
                   height: '$12', // space[12]
                 //   boxShadow: '$md', // shadows.md
                   '&:hover': {
-                    color: theme.colors.purple400.value,
+                    color: theme.colors.purple700.value,
                   },
                   '&:active': {
                     background: theme.colors.pink200.value,
@@ -110,7 +106,7 @@ export default function Nav() {
                   },
                 }}
                 // iconRight={icons.chevron}
-                ripple={false}
+                ripple={true}
               >
                 Products
               </Dropdown.Button>
@@ -182,11 +178,11 @@ export default function Nav() {
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
-              color: theme.colors.blue800.value,
+              color: theme.colors.purple500.value,
               height: '$12', // space[12]
               dropShadow: '$lg',
                 '&:hover': {
-                color: theme.colors.pink800.value,
+                  color: theme.colors.purple700.value,
                 },
                 '&:active': {
                 background: theme.colors.pink200.value,
@@ -207,11 +203,11 @@ export default function Nav() {
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
-              color: theme.colors.blue800.value,
+              color: theme.colors.purple500.value,
               height: '$12', // space[12]
               dropShadow: '$lg',
                 '&:hover': {
-                color: theme.colors.pink800.value,
+                  color: theme.colors.purple700.value,
                 },
                 '&:active': {
                 background: theme.colors.pink200.value,
@@ -232,11 +228,11 @@ export default function Nav() {
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
-              color: theme.colors.blue800.value,
+              color: theme.colors.purple500.value,
               height: '$12', // space[12]
               dropShadow: '$lg',
                 '&:hover': {
-                color: theme.colors.pink800.value,
+                  color: theme.colors.purple700.value,
                 },
                 '&:active': {
                 background: theme.colors.pink200.value,
@@ -255,7 +251,7 @@ export default function Nav() {
             size='lg'
             iconOn={<FontAwesomeIcon icon={faMoon} />}
             iconOff={<FontAwesomeIcon icon={faSun} />}
-            color={isDark ? 'secondary' : '$white600'}
+            color={isDark ? 'secondary' : 'backgroundContrast'}
             onChange={(e) => {
                     console.log('checking e', e)
                     setTheme(e.target.checked === true ? 'dark' : 'light')
@@ -264,7 +260,7 @@ export default function Nav() {
             css={{
             marginRight: '20px',
             marginLeft: '-130px',
-            color: isDark ? theme.colors.secondary.value : '$white600'
+            color: isDark ? theme.colors.purple500.value : '$white600'
             }}
         />
         <Navbar.Content>
@@ -279,11 +275,11 @@ export default function Nav() {
                 svg: { pe: "none" },
                 // borderRadius: '$xs', // radii.xs
                 // border: '$space$1 solid transparent',
-                color: theme.colors.blue800.value,
+                color: theme.colors.purple500.value,
                 height: '$12', // space[12]
                 dropShadow: '$lg',
                   '&:hover': {
-                  color: theme.colors.pink800.value,
+                    color: theme.colors.purple700.value,
                   },
                   '&:active': {
                   background: theme.colors.pink200.value,
@@ -342,18 +338,17 @@ export default function Nav() {
               isActive
               color="inherit" 
               href="#"
-              onPress={handler}
               css={{
                 px: 0,
                 dflex: "center",
                 svg: { pe: "none" },
                 // borderRadius: '$xs', // radii.xs
                 // border: '$space$1 solid transparent',
-                color: theme.colors.blue800.value,
+                color: theme.colors.purple500.value,
                 height: '$12', // space[12]
                 dropShadow: '$lg',
                   '&:hover': {
-                  color: theme.colors.pink800.value,
+                    color: theme.colors.purple700.value,
                   },
                   '&:active': {
                   background: theme.colors.pink200.value,
@@ -369,6 +364,7 @@ export default function Nav() {
                 aria-labelledby="modal-title"
                 open={visible}
                 onClose={closeHandler}
+                blur
               >
                 <Modal.Header>
                   <Text id="modal-title" size={18}>
@@ -412,12 +408,29 @@ export default function Nav() {
                 </Modal.Footer>
               </Modal>
               ) : ''}
-              <FontAwesomeIcon size='xl' icon={faRightToBracket} />
+              <Button 
+                onPress={handler}
+                light
+                color="secondary"
+                css={{
+                  color: theme.colors.purple500.value,
+                  '&:hover': {
+                    color: theme.colors.purple700.value,
+                  },
+                }}
+                auto
+              >
+                {visible === true ? (
+                  <Loading
+                    color='secondary'
+                    size='sm'
+                  />
+                ) : <FontAwesomeIcon size='xl' icon={faRightToBracket} />}
+              </Button>
           </Navbar.Link>
           )}
           <Navbar.Link 
             isActive
-            color='inherit' 
             href='#'
             css={{
               px: 0,
@@ -425,11 +438,11 @@ export default function Nav() {
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
-              color: theme.colors.blue800.value,
+              color: theme.colors.purple500.value,
               height: '$12', // space[12]
               dropShadow: '$lg',
               '&:hover': {
-                color: theme.colors.pink800.value,
+                color: theme.colors.purple700.value,
               },
               '&:active': {
                 background: theme.colors.pink200.value,

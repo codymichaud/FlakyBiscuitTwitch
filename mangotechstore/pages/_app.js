@@ -184,6 +184,7 @@ const darkTheme = createTheme({
       blue600: '#0072F5',
       blue700: '#3694FF',
       blue800: '#3694FF',
+      purple700: '#9750DD',
       purple600: '#7828C8',
       purple500: '#571D91',
       purple400: '#451773',
