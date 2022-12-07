@@ -9,25 +9,39 @@ import {
   Input,
   Row,
   Checkbox,
+  Grid,
+  User,
+  Switch,
 } from "@nextui-org/react";
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComputer, 
     faCartShopping, 
     faRightToBracket,
-    faRightFromBracket, 
+    faRightFromBracket,
+    faMoon,
+    faSun, 
 } from '@fortawesome/free-solid-svg-icons';
 import { useTheme as useNextTheme } from 'next-themes'
-import { useTheme } from '@nextui-org/react'
-import DarkModeToggler from '../components/DarkModeToggler';
-import LoggedInAvatar from './LoggedInAvatar';
+import { useTheme } from '@nextui-org/react';
 
 export default function Nav() {
     const [variant, setVariant] = React.useState("static");
-    const [loggedIn, setLoggedIn] = React.useState(false);
+    const [loggedIn, setLoggedIn] = React.useState(true);
     const branding = 'Mango Tech Store';
     const  { theme } = useTheme();
     const [visible, setVisible] = React.useState(false);
+    const userName = 'Cody M';
+    const userEmail = 'cody@ascendcohealth.com';
+    const { setTheme } = useNextTheme();
+    const [mounted, setMounted] = React.useState(false);
+    const { isDark, type } = useTheme();
+
+    React.useEffect(() => { setMounted(true) }, []);
+
+    if (!mounted) return <></>;
+
+    console.log('checking theme', isDark, type, setTheme);
     const handler = () => {
       setVisible(true);
       console.log('opened!')
@@ -235,7 +249,24 @@ export default function Nav() {
             Computer Systems
           </Navbar.Link>
         </Navbar.Content>
-        <DarkModeToggler />
+        <Switch
+            checked={isDark}
+            shadow
+            size='lg'
+            iconOn={<FontAwesomeIcon icon={faMoon} />}
+            iconOff={<FontAwesomeIcon icon={faSun} />}
+            color={isDark ? 'secondary' : '$white600'}
+            onChange={(e) => {
+                    console.log('checking e', e)
+                    setTheme(e.target.checked === true ? 'dark' : 'light')
+                }
+            }
+            css={{
+            marginRight: '20px',
+            marginLeft: '-130px',
+            color: isDark ? theme.colors.secondary.value : '$white600'
+            }}
+        />
         <Navbar.Content>
           {loggedIn ? (
           <Navbar.Link  
@@ -263,7 +294,48 @@ export default function Nav() {
               }}
             >
                
-              <LoggedInAvatar />
+               <Grid.Container justify="flex-start" gap={1}>
+                  <Grid>
+                    <Dropdown placement="bottom-left">
+                      <Dropdown.Trigger>
+                        <User
+                          bordered
+                          as="button"
+                          size="lg"
+                          color='gradient'
+                          zoomed
+                          pointer
+                          squared
+                          name={userName}
+                          src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                        />
+                      </Dropdown.Trigger>
+                      <Dropdown.Menu color="primary" aria-label="User Actions">
+                        <Dropdown.Item key="profile" css={{ height: "$18" }}>
+                          <Text b color="inherit" css={{ d: "flex" }}>
+                            Signed in as
+                          </Text>
+                          <Text b color="inherit" css={{ d: "flex" }}>
+                            {userEmail}
+                          </Text>
+                        </Dropdown.Item>
+                        <Dropdown.Item key="settings" withDivider>
+                          My Profile
+                        </Dropdown.Item>
+                        <Dropdown.Item key="analytics" withDivider>
+                          Change Password
+                        </Dropdown.Item>
+                        <Dropdown.Item key="system">Wishlist</Dropdown.Item>
+                        <Dropdown.Item key="help_and_feedback" withDivider>
+                          Help & Feedback
+                        </Dropdown.Item>
+                        <Dropdown.Item key="logout" color="error" withDivider>
+                          Log Out
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Grid>
+                </Grid.Container>
           </Navbar.Link>
           ) : (
             <Navbar.Link  
@@ -302,7 +374,7 @@ export default function Nav() {
                   <Text id="modal-title" size={18}>
                     Welcome to
                     <Text b size={18}>
-                       Mango Tech Store
+                      Mango Tech Store
                     </Text>
                   </Text>
                 </Modal.Header>
