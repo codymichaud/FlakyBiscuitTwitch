@@ -1,4 +1,4 @@
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Nav.module.css'
 import { 
   Navbar,
   Dropdown,
@@ -57,6 +57,9 @@ export default function Nav() {
         <Navbar
         maxWidth='fluid' 
         variant={variant}
+        css={{
+          borderBottom: '1px solid $gray50',
+        }}
         // border: '$space$1 solid transparent',
       >
         
