@@ -29,11 +29,11 @@ import { useTheme } from '@nextui-org/react';
 export default function Nav() {
     const [variant, setVariant] = React.useState("static");
     const [loggedIn, setLoggedIn] = React.useState(false);
-    const branding = 'Mango Tech Store';
+    const branding = 'Spit Roast GanG';
     const  { theme } = useTheme();
     const [visible, setVisible] = React.useState(false);
     const userName = 'Cody M';
-    const userEmail = 'cody@ascendcohealth.com';
+    const userEmail = 'Flaky Biscuit';
     const { setTheme } = useNextTheme();
     const [mounted, setMounted] = React.useState(false);
     const { isDark, type } = useTheme();
@@ -67,20 +67,12 @@ export default function Nav() {
           <Text h1
             size={30}
             css={{
-              textGradient: `45deg, ${theme.colors.purple600.value} 40%, ${theme.colors.pink600.value} 70%, ${theme.colors.blue600.value} 90%`,
+              textGradient: "45deg, $yellow600 -20%, $red600 100%",
             }}
             weight="bold"
             b color="inherit" 
             hideIn="xs"
-          >
-          <FontAwesomeIcon
-           icon={faComputer} 
-           size='lg'
-           className='fa-spinner'
-           css={{
-            animationDuration: '2s',
-           }}
-          /> {branding}
+          > {branding}
           </Text>
         </Navbar.Brand>
         <Navbar.Content className={styles.container} hideIn="xs">
@@ -111,7 +103,7 @@ export default function Nav() {
                 // iconRight={icons.chevron}
                 ripple={true}
               >
-                Products
+                Streams
               </Dropdown.Button>
             </Navbar.Item>
             <Dropdown.Menu
@@ -138,38 +130,28 @@ export default function Nav() {
                 <Dropdown.Item
                 key="core_components"
                 >
-                Core Components
+                Rocket League
                 </Dropdown.Item>
                 <Dropdown.Item
                 key="storage"
                 >
-                Storage Devices
+                Overwatch 2
                 </Dropdown.Item>
                 <Dropdown.Item
                 key="accessories"
                 >
-                Accessories
+                Call of Duty
                 </Dropdown.Item>
                 <Dropdown.Item
                 key="refurbished"
                 >
-                Refurbished
+                Destiny
                 </Dropdown.Item>
                 <Dropdown.Item
                 key="networking"
                 >
-                Networking
+                Gang Beasts
                 </Dropdown.Item>
-              <Dropdown.Item
-                key="gaming"
-              >
-                Gaming
-              </Dropdown.Item>
-              <Dropdown.Item
-                key="electronics"
-              >
-                Electronics
-              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <Navbar.Link 
@@ -195,7 +177,7 @@ export default function Nav() {
                 },
             }}
           >
-            Best Sellers
+            The GanG
           </Navbar.Link>
           <Navbar.Link  
             isActive
@@ -220,11 +202,11 @@ export default function Nav() {
                 },
             }}
           >
-            All Products
+            Links
           </Navbar.Link>
           <Navbar.Link 
             isActive
-            href="#"
+            href="/our-setups"
             css={{
               px: 0,
               dflex: "center",
@@ -245,7 +227,7 @@ export default function Nav() {
                 },
             }}
           >
-            Computer Systems
+            Our Setups
           </Navbar.Link>
         </Navbar.Content>
         <Switch
@@ -371,9 +353,9 @@ export default function Nav() {
               >
                 <Modal.Header>
                   <Text id="modal-title" size={18}>
-                    Welcome to
+                    Welcome to <br />
                     <Text b size={18}>
-                      Mango Tech Store
+                      Spit Roast GanG
                     </Text>
                   </Text>
                 </Modal.Header>

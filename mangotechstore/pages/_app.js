@@ -1,4 +1,6 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
+import { Provider } from 'react-redux';
+import store from '../store/index';
 import { NextUIProvider } from '@nextui-org/react';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -343,7 +345,9 @@ function MyApp({ Component, pageProps }) {
     }}
   >
     <NextUIProvider>
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
       <Analytics />
     </NextUIProvider>
   </NextThemesProvider>
