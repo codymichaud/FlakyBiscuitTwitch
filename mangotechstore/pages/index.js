@@ -26,7 +26,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Nav />
-      <HomePage />
+      <div>
+        <HomePage />
+      </div>
       
 
       <footer className={styles.footer}>
