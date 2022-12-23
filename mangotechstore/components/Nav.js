@@ -32,8 +32,11 @@ export default function Nav() {
     const branding = 'Spit Roast GanG';
     const  { theme } = useTheme();
     const [visible, setVisible] = React.useState(false);
+    const [userEmail, setUserEmail] = React.useState('');
+    const [userPass, setUserPass] = React.useState('');
     const userName = 'Cody M';
-    const userEmail = 'Flaky Biscuit';
+    const testEmail = 'FlakyBiscuit';
+    const testPass = '123456';
     const { setTheme } = useNextTheme();
     const [mounted, setMounted] = React.useState(false);
     const { isDark, type } = useTheme();
@@ -52,6 +55,32 @@ export default function Nav() {
       setVisible(false);
       console.log('closed');
     };
+
+    const logout = () => {
+      if (loggedIn === true) {
+        setLoggedIn(false);
+        console.log('logging out');
+      }
+    }
+
+    const authLogin = (key, value) => {
+      if (key === 'email') {
+        console.log('email', value);
+        setUserEmail(value);
+      } else if (key === 'password') {
+        console.log('password', value);
+        setUserPass(value);
+      }
+    }
+
+    const authCheck = () => {
+      console.log('checking email and checking password', userEmail,  userPass)
+      if (userEmail === testEmail && userPass === testPass) {
+        setLoggedIn(true);
+        console.log('logged in');
+      }
+      setVisible(false);
+    }
 
     return (
         <Navbar
@@ -310,7 +339,7 @@ export default function Nav() {
                         <Dropdown.Item key="help_and_feedback" withDivider>
                           Help & Feedback
                         </Dropdown.Item>
-                        <Dropdown.Item key="logout" color="error" withDivider>
+                        <Dropdown.Item onPress={logout} key="logout" color="error" withDivider>
                           Log Out
                         </Dropdown.Item>
                       </Dropdown.Menu>
@@ -361,6 +390,7 @@ export default function Nav() {
                 </Modal.Header>
                 <Modal.Body>
                   <Input
+                    onChange={(e) => authLogin('email', e.target.value)}
                     clearable
                     bordered
                     fullWidth
@@ -369,6 +399,7 @@ export default function Nav() {
                     placeholder="Email"
                   />
                   <Input
+                    onChange={(e) => authLogin('password', e.target.value)}
                     clearable
                     bordered
                     fullWidth
@@ -387,7 +418,7 @@ export default function Nav() {
                   <Button auto flat color="error" onClick={closeHandler}>
                     Close
                   </Button>
-                  <Button auto onClick={closeHandler}>
+                  <Button auto onPress={authCheck}>
                     Sign in
                   </Button>
                 </Modal.Footer>
