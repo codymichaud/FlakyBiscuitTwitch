@@ -2,9 +2,10 @@ import styles from '../styles/HomePage.module.css'
 import React from "react";
 import { useTheme as useNextTheme } from 'next-themes'
 import { useTheme } from '@nextui-org/react';
-import { Card, Loading, Col, Text, Grid } from '@nextui-org/react';
+import { Card, Loading, Col, Text, Grid, Row, Button } from '@nextui-org/react';
 import axios from 'axios';
 import history from "history";
+import rocketLeagueImg from '../public/mq3.jpg';
 
 
 export default function HomePage() {
@@ -65,7 +66,43 @@ export default function HomePage() {
         console.log('stream info', streams);
     })
         
+    const latestStream = () => {
+        console.log('checking for latest stream', streams);
+        if (streams === null) {
+            return true;
+        }
+        const newStream = streams[0];
 
+        return (
+            <Card isPressable css={{ w: "100%", h: "400px", mt: '3rem', mb: '3rem' }}>
+            <Card.Body css={{ p: 0 }}>
+              <Card.Image
+                src={rocketLeagueImg}
+                width="100%"
+                height="90%"
+                objectFit="cover"
+                alt="Card example background"
+              />
+            </Card.Body>
+            <Card.Footer
+              isBlurred
+              css={{
+                position: "absolute",
+                bgBlur: "#ffffff66",
+                borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
+                bottom: 0,
+                zIndex: 1,
+              }}
+            >
+              <Row>
+                <Text color="#000" size={14}>
+                    {newStream.title}
+                </Text>
+              </Row>
+            </Card.Footer>
+          </Card>
+        )
+    }
 
     
         
@@ -118,30 +155,7 @@ export default function HomePage() {
                     </Card>
                 </Grid>
                 <Grid xs={4}>
-                    <Card
-                        css={{
-                            mt: '4rem',
-                            ml: '2.5rem',
-                            mr: '2.5rem',
-                            height: '25rem',
-
-                    }}
-                    >
-                        <Card.Header css={{ position: "absolute", zIndex: 1, top: 5, ml: '2px' }}>
-                            <Col>
-                            <Text 
-                                className='text-4xl'
-                                h3 
-                                css={{
-                                textGradient: "45deg, $yellow600 -20%, $red600 100%",
-                                }}
-                                weight="bold"
-                                >
-                                    Latest Stream
-                                </Text>
-                            </Col>
-                        </Card.Header>
-                    </Card>
+                    {latestStream()}
                 </Grid>
             </Grid.Container>
         </div>
