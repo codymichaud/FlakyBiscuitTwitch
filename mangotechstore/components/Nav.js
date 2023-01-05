@@ -445,34 +445,6 @@ export default function Nav() {
               </Button>
           </Navbar.Link>
           )}
-          <Navbar.Link 
-            isActive
-            href='#'
-            css={{
-              px: 0,
-              dflex: "center",
-              svg: { pe: "none" },
-              // borderRadius: '$xs', // radii.xs
-              // border: '$space$1 solid transparent',
-              color: theme.colors.purple500.value,
-              height: '$12', // space[12]
-              dropShadow: '$lg',
-              '&:hover': {
-                color: theme.colors.purple700.value,
-              },
-              '&:active': {
-                background: theme.colors.pink200.value,
-              },
-              '&:focus': {
-                borderColor: theme.colors.pink400.value,
-              },
-            }}
-          >
-            <FontAwesomeIcon
-             icon={faCartShopping}
-             size='lg'
-            />
-          </Navbar.Link>
         </Navbar.Content>
       </Navbar>
     )

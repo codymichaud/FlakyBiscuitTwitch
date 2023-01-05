@@ -14,6 +14,8 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@nextui-org/react": "^1.0.0-beta.10",
     "@reduxjs/toolkit": "^1.9.1",
+    "@sanity/ui": "^1.0.12",
+    "@sanity/vision": "^3.0.0",
     "@vercel/analytics": "^0.1.5",
     "axios": "^1.2.1",
     "curl": "^0.1.4",
@@ -24,16 +26,16 @@
     "next": "13.0.5",
     "next-sanity": "^3.1.5",
     "next-themes": "^0.2.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-is": "^18.2.0",
     "react-redux": "^8.0.5",
-    "@sanity/vision": "^3.0.0",
     "sanity": "^3.0.0",
-    "styled-components": "^5.2.0"
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.13",
     "@sanity/eslint-config-studio": "^2.0.1",
+    "autoprefixer": "^10.4.13",
     "postcss": "^8.4.19",
     "tailwindcss": "^3.2.4"
   }
