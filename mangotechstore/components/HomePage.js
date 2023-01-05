@@ -2,10 +2,10 @@ import styles from '../styles/HomePage.module.css'
 import React from "react";
 import { useTheme as useNextTheme } from 'next-themes'
 import { useTheme } from '@nextui-org/react';
-import { Card, Loading, Col, Text, Grid, Row, Button } from '@nextui-org/react';
+import { Card, Loading, Col, Text, Grid, Row, Button, Progress } from '@nextui-org/react';
 import axios from 'axios';
 import history from "history";
-import rocketLeagueImg from '../public/mq3.jpg';
+import {streamImage} from '../../mangotechstore/public/mq3.jpg';
 
 
 export default function HomePage() {
@@ -18,6 +18,7 @@ export default function HomePage() {
     const [streams, setStreams] = React.useState(null);
     const [clientID, setClientID] = React.useState('vyohv0woocxlcesczlgrmeksszijqa');
     const [userInfo, setUserInfo] = React.useState(null);
+    const [streamFollowers, setStreamFollowers] = React.useState(null);
 
     React.useEffect(() => {
         if (channelInfo === null){
@@ -27,7 +28,8 @@ export default function HomePage() {
                     'Authorization': `Bearer ${accessToken}`,
                     'Client-Id': `${clientID}`,
                 }
-            }).then(res => {
+            })
+            getChannelInfo.then(res => {
                 console.log('heres some channel data', res)
                 setChannelInfo(res.data.data[0]);
             })
@@ -43,7 +45,8 @@ export default function HomePage() {
                     'Authorization': `Bearer ${accessToken}`,
                     'Client-Id': `${clientID}`,
                 }
-            }).then(resp => {
+            })
+            getUserInfo.then(resp => {
                 console.log('heres some user data', resp);
                 setUserInfo(resp.data.data[0]);
             })
@@ -58,26 +61,44 @@ export default function HomePage() {
                     'Authorization': `Bearer ${accessToken}`,
                     'Client-Id': `${clientID}`,
                 }
-            }).then(respo => {
+            })
+            getStreams.then(respo => {
                 console.log('sum stream info', respo)
                 setStreams(respo.data.data);
             })
         }
         console.log('stream info', streams);
     })
+
+    React.useEffect(() => {
+        if (streamFollowers === null) {
+            const getFollowers = axios.get(`https://api.twitch.tv/helix/users/follows?to_id=${channelID}`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Client-Id': `${clientID}`,
+                }
+            })
+            getFollowers.then(respos => {
+                console.log('sum stream info', respos)
+                setStreamFollowers(respos.data.data);
+            })
+        }
+    })
         
     const latestStream = () => {
+        const dayjs = require('dayjs')
         console.log('checking for latest stream', streams);
         if (streams === null) {
             return true;
         }
         const newStream = streams[0];
-
+        console.log('new stream', newStream);
         return (
-            <Card isPressable css={{ w: "100%", h: "400px", mt: '3rem', mb: '3rem' }}>
+            <Card isPressable css={{ w: "100%", h: "400px", mt: '4rem', mb: '3rem' }}>
             <Card.Body css={{ p: 0 }}>
               <Card.Image
-                src={rocketLeagueImg}
+                src={newStream.thumbnail_url}
                 width="100%"
                 height="90%"
                 objectFit="cover"
@@ -94,13 +115,61 @@ export default function HomePage() {
                 zIndex: 1,
               }}
             >
-              <Row>
+              <Col sm={12}>
                 <Text color="#000" size={14}>
+                    {dayjs(newStream.created_at).format('dddd MMMM D, YYYY')}
+                </Text>
+                <Text color="#000" size={14} css={{ mt: '5px' }}>
                     {newStream.title}
                 </Text>
-              </Row>
+              </Col>
             </Card.Footer>
           </Card>
+        )
+    }
+
+    const streamGoals = () => {
+        if (streamFollowers === null || streams === null) {
+            return true;
+        }
+        const newStream = streams[0];
+        console.log('checking progress', streamFollowers.length * 10)
+        return (
+            <Card isPressable css={{ w: "100%", h: "400px", mt: '2.5rem', mb: '3rem', ml: '2.5rem', mr: '2.5rem' }}>
+                <Card.Header css={{ position: "absolute", zIndex: 1, top: 5, ml: '2px' }}>
+                    <Text className='text-base' size={12} weight="bold" transform="uppercase" color="#9E9E9E">
+                        Help us reach our goals!
+                    </Text>
+                </Card.Header>
+                <Card.Body>
+                    <Grid.Container gap={2} css={{ mt: '1.5rem' }}>
+                        <Grid xs={12}>
+                            <Col>
+                                <Text className='text-base' size={12} weight="bold" transform="uppercase" color="#9E9E9E">
+                                    Subscribers (Lets hit 10!!) {`${streamFollowers.length} / 10`}
+                                </Text>
+                                <Progress shadow color="warning" value={streamFollowers.length * 10} css={{ mt: '3px' }} />
+                            </Col>
+                        </Grid>
+                        <Grid xs={12}>
+                            <Col>
+                                <Text className='text-base' size={12} weight="bold" transform="uppercase" color="#9E9E9E">
+                                    Latest Stream Views (Lets hit 10!!) {`${newStream.view_count} / 10`}
+                                </Text>
+                                <Progress shadow color="error" value={newStream.view_count * 10} css={{ mt: '3px' }} />
+                            </Col>
+                        </Grid>
+                        <Grid xs={12}>
+                            <Col>
+                                <Text className='text-base' size={12} weight="bold" transform="uppercase" color="#9E9E9E">
+                                    Last Stream Views (Lets hit 10!!) {`${newStream.view_count} / 10`}
+                                </Text>
+                                <Progress shadow color="error" value={newStream.view_count * 10} css={{ mt: '3px' }} />
+                            </Col>
+                        </Grid>
+                    </Grid.Container>
+                </Card.Body>
+            </Card>
         )
     }
 
@@ -156,6 +225,9 @@ export default function HomePage() {
                 </Grid>
                 <Grid xs={4}>
                     {latestStream()}
+                </Grid>
+                <Grid xs={4}>
+                    {streamGoals()}
                 </Grid>
             </Grid.Container>
         </div>
