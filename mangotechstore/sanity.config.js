@@ -10,8 +10,8 @@ export default defineConfig({
   basePath: '/studio',
   name: 'Spit_Roast_GanG_Content_Studio',
   title: 'Spit Roast GanG Content Studio',
-  projectId: projectId,
-  dataset: dataset,
+  projectId: 'fm96vt2j',
+  dataset: 'production',
   plugins: [deskTool(), visionTool()],
   schema: {
     types: schemaTypes,
