@@ -7,6 +7,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { createTheme } from "@nextui-org/react"
 import { Analytics } from '@vercel/analytics/react';
+import Nav from '../components/Nav';
 
 
 config.autoAddCss = false
@@ -346,6 +347,7 @@ function MyApp({ Component, pageProps }) {
   >
     <NextUIProvider>
       <Provider store={store}>
+        <Nav />
         <Component {...pageProps} />
       </Provider>
       <Analytics />
