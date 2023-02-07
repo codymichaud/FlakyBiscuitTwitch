@@ -1,24 +1,14 @@
 import { defineField, defineType } from 'sanity';
 
 export default {
-    name: 'secondStreamBox',
+    name: 'streamGameTitle',
     type: 'document',
-    title: 'Second Stream Box',
+    title: 'Stream Game Title',
     fields: [
-        {
-            name: 'secondGameImg',
-            type: 'image',
-            title: 'Second Game Image'
-        },
         {
             name: 'secondGameTitle',
             type: 'string',
             title: 'Second Game Title'
-        },
-        {
-            name: 'secondGameLink',
-            type: 'string',
-            title: 'Second Game Link'
         }
     ]
     
