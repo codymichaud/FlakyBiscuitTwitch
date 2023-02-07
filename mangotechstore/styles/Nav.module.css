@@ -1,14 +1,14 @@
-.homeNavbar {
+/* .homeNavbar {
   max-width: 100% !important;
-}
+} */
 
-.container {
+/* .container {
   width: 100%;
-}
+} */
 
-.navBrand {
+/* .navBrand {
   width: 70%;
-}
+} */
 
 .footer {
   display: flex;
@@ -25,6 +25,8 @@
   align-items: center;
   flex-grow: 1;
 }
+
+
 
 @media (max-width: 600px) {
   .grid {

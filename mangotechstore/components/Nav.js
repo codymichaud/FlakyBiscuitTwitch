@@ -29,12 +29,12 @@ import { useTheme } from '@nextui-org/react';
 export default function Nav() {
     const [variant, setVariant] = React.useState("static");
     const [loggedIn, setLoggedIn] = React.useState(false);
-    const branding = 'Spit Roast GanG';
+    const branding = 'Flaky Biscuit';
     const  { theme } = useTheme();
     const [visible, setVisible] = React.useState(false);
     const [userEmail, setUserEmail] = React.useState('');
     const [userPass, setUserPass] = React.useState('');
-    const userName = 'Cody M';
+    const userName = 'CodyM';
     const testEmail = 'FlakyBiscuit';
     const testPass = '123456';
     const { setTheme } = useNextTheme();
@@ -44,6 +44,7 @@ export default function Nav() {
     React.useEffect(() => { setMounted(true) }, []);
 
     if (!mounted) return <></>;
+
 
     console.log('checking theme', isDark, type, setTheme);
     const handler = () => {
@@ -57,10 +58,10 @@ export default function Nav() {
     };
 
     const logout = () => {
-      if (loggedIn === true) {
+      // if (loggedIn === true) {
         setLoggedIn(false);
         console.log('logging out');
-      }
+      // }
     }
 
     const authLogin = (key, value) => {
@@ -75,10 +76,10 @@ export default function Nav() {
 
     const authCheck = () => {
       console.log('checking email and checking password', userEmail,  userPass)
-      if (userEmail === testEmail && userPass === testPass) {
+      // if (userEmail === testEmail && userPass === testPass) {
         setLoggedIn(true);
         console.log('logged in');
-      }
+      // }
       setVisible(false);
     }
 
@@ -86,6 +87,7 @@ export default function Nav() {
         <Navbar
         maxWidth='fluid' 
         variant={variant}
+        className='flex flex-auto dark:bg-black'
         css={{
           borderBottom: '1px solid $gray50',
         }}
@@ -93,110 +95,67 @@ export default function Nav() {
       >
         
         <Navbar.Brand className={styles.navBrand}>
-          <Text h1
+          
+          <Link 
+            href="/"
+          >
+            <Text h1
             size={30}
             css={{
-              textGradient: "45deg, $yellow600 -20%, $red600 100%",
+              textGradient: "45deg, $white 10%, $red600 100%",
             }}
             weight="bold"
             b color="inherit" 
             hideIn="xs"
-          > {branding}
-          </Text>
+          > 
+            {branding}
+            </Text>
+          </Link>
+          
         </Navbar.Brand>
-        <Navbar.Content className={styles.container} hideIn="xs">
-          <Dropdown isBordered>
-            <Navbar.Item>
-              <Dropdown.Button
-                auto
-                light
-                css={{
-                  px: 0,
-                  dflex: "center",
-                  svg: { pe: "none" },
-                  // borderRadius: '$xs', // radii.xs
-                  // border: '$space$1 solid transparent',
-                  color: theme.colors.purple500.value,
-                  height: '$12', // space[12]
-                //   boxShadow: '$md', // shadows.md
-                  '&:hover': {
-                    color: theme.colors.purple700.value,
-                  },
-                  '&:active': {
-                    background: theme.colors.pink200.value,
-                  },
-                  '&:focus': {
-                    borderColor: theme.colors.pink600.value,
-                  },
-                }}
-                // iconRight={icons.chevron}
-                ripple={true}
-              >
-                Streams
-              </Dropdown.Button>
-            </Navbar.Item>
-            <Dropdown.Menu
-              aria-label="ACME features"
-              isVirtualized
-              css={{
-                $$dropdownMenuWidth: "340px",
-                $$dropdownItemHeight: "70px",
-                "& .nextui-dropdown-item": {
-                  py: "$4",
-                  // dropdown item left icon
-                  svg: {
-                    color: theme.colors.secondary.value,
-                    mr: "$4",
-                },
-                // dropdown item title
-                "& .nextui-dropdown-item-content": {
-                    w: "100%",
-                    fontWeight: "$semibold",
-                },
-            },
-        }}
-            >
-                <Dropdown.Item
-                key="core_components"
-                >
-                Rocket League
-                </Dropdown.Item>
-                <Dropdown.Item
-                key="storage"
-                >
-                Overwatch 2
-                </Dropdown.Item>
-                <Dropdown.Item
-                key="accessories"
-                >
-                Call of Duty
-                </Dropdown.Item>
-                <Dropdown.Item
-                key="refurbished"
-                >
-                Destiny
-                </Dropdown.Item>
-                <Dropdown.Item
-                key="networking"
-                >
-                Gang Beasts
-                </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          <Navbar.Link 
-            isActive 
-            href="#"
+        <Navbar.Content className={`${styles.container} grid grid-cols-5`} hideIn="xs">
+          <Navbar.Link
+            auto
+            light
+            href='/streams'
             css={{
               px: 0,
               dflex: "center",
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
-              color: theme.colors.purple500.value,
+              color: theme.colors.white.value,
+              height: '$12', // space[12]
+            //   boxShadow: '$md', // shadows.md
+              '&:hover': {
+                color: theme.colors.red700.value,
+              },
+              '&:active': {
+                background: theme.colors.pink200.value,
+              },
+              '&:focus': {
+                borderColor: theme.colors.pink600.value,
+              },
+            }}
+            // iconRight={icons.chevron}
+            ripple
+          >
+            Streams
+          </Navbar.Link>
+          <Navbar.Link 
+            isActive 
+            href="/about-flaky"
+            css={{
+              px: 0,
+              dflex: "center",
+              svg: { pe: "none" },
+              // borderRadius: '$xs', // radii.xs
+              // border: '$space$1 solid transparent',
+              color: theme.colors.white.value,
               height: '$12', // space[12]
               dropShadow: '$lg',
                 '&:hover': {
-                  color: theme.colors.purple700.value,
+                  color: theme.colors.red700.value,
                 },
                 '&:active': {
                 background: theme.colors.pink200.value,
@@ -206,22 +165,47 @@ export default function Nav() {
                 },
             }}
           >
-            The GanG
+            About
           </Navbar.Link>
-          <Navbar.Link  
-            isActive
-            href="#"
+          <Navbar.Link 
+            isActive 
+            href="/stats"
             css={{
               px: 0,
               dflex: "center",
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
-              color: theme.colors.purple500.value,
+              color: theme.colors.white.value,
               height: '$12', // space[12]
               dropShadow: '$lg',
                 '&:hover': {
-                  color: theme.colors.purple700.value,
+                  color: theme.colors.red700.value,
+                },
+                '&:active': {
+                background: theme.colors.pink200.value,
+                },
+                '&:focus': {
+                borderColor: theme.colors.pink400.value,
+                },
+            }}
+          >
+            Stats
+          </Navbar.Link>
+          <Navbar.Link  
+            isActive
+            href="/links"
+            css={{
+              px: 0,
+              dflex: "center",
+              svg: { pe: "none" },
+              // borderRadius: '$xs', // radii.xs
+              // border: '$space$1 solid transparent',
+              color: theme.colors.white.value,
+              height: '$12', // space[12]
+              dropShadow: '$lg',
+                '&:hover': {
+                  color: theme.colors.red700.value,
                 },
                 '&:active': {
                 background: theme.colors.pink200.value,
@@ -235,18 +219,18 @@ export default function Nav() {
           </Navbar.Link>
           <Navbar.Link 
             isActive
-            href="/our-setups"
+            href="/my-setup"
             css={{
               px: 0,
               dflex: "center",
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
-              color: theme.colors.purple500.value,
+              color: theme.colors.white.value,
               height: '$12', // space[12]
               dropShadow: '$lg',
                 '&:hover': {
-                  color: theme.colors.purple700.value,
+                  color: theme.colors.red700.value,
                 },
                 '&:active': {
                 background: theme.colors.pink200.value,
@@ -256,9 +240,10 @@ export default function Nav() {
                 },
             }}
           >
-            Our Setups
+            My Setup
           </Navbar.Link>
         </Navbar.Content>
+        <Navbar.Content>
         <Switch
             checked={isDark}
             shadow
@@ -277,7 +262,6 @@ export default function Nav() {
             color: isDark ? theme.colors.purple500.value : '$white600'
             }}
         />
-        <Navbar.Content>
           {loggedIn ? (
           <Navbar.Link  
               isActive
@@ -293,7 +277,7 @@ export default function Nav() {
                 height: '$12', // space[12]
                 dropShadow: '$lg',
                   '&:hover': {
-                    color: theme.colors.purple700.value,
+                    color: theme.colors.red700.value,
                   },
                   '&:active': {
                   background: theme.colors.pink200.value,
@@ -304,7 +288,7 @@ export default function Nav() {
               }}
             >
                
-               <Grid.Container justify="flex-start" gap={1}>
+               <Grid.Container justify="flex-start">
                   <Grid>
                     <Dropdown placement="bottom-left">
                       <Dropdown.Trigger>
@@ -362,7 +346,7 @@ export default function Nav() {
                 height: '$12', // space[12]
                 dropShadow: '$lg',
                   '&:hover': {
-                    color: theme.colors.purple700.value,
+                    color: theme.colors.red700.value,
                   },
                   '&:active': {
                   background: theme.colors.pink200.value,
@@ -427,21 +411,27 @@ export default function Nav() {
               <Button 
                 onPress={handler}
                 light
-                color="secondary"
+                color="white"
                 css={{
-                  color: theme.colors.purple500.value,
+                  color: theme.colors.red700.value,
                   '&:hover': {
-                    color: theme.colors.purple700.value,
+                    color: theme.colors.red700.value,
                   },
                 }}
                 auto
               >
                 {visible === true ? (
                   <Loading
-                    color='secondary'
+                    color='$white'
                     size='sm'
                   />
-                ) : <FontAwesomeIcon size='xl' icon={faRightToBracket} />}
+                ) : <FontAwesomeIcon size='xl' color={theme.colors.white.value} 
+                css={{
+                  color: theme.colors.red700.value,
+                    '&:hover': {
+                      color: theme.colors.red700.value,
+                    },
+                }} icon={faRightToBracket} />}
               </Button>
           </Navbar.Link>
           )}
