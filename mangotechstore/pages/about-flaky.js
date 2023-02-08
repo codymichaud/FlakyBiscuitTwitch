@@ -5,7 +5,7 @@ export default function TheGanG() {
     
     return (
         <div>
-        <h1>The GanG</h1>
+        <h1>About FlakyBiscuit</h1>
         </div>
     );
 }

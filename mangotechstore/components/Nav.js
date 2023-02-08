@@ -87,14 +87,14 @@ export default function Nav() {
         <Navbar
         maxWidth='fluid' 
         variant={variant}
-        className='flex flex-auto dark:bg-black'
+        className='flex justify-start dark:bg-black'
         css={{
           borderBottom: '1px solid $gray50',
         }}
         // border: '$space$1 solid transparent',
       >
         
-        <Navbar.Brand className={styles.navBrand}>
+        <Navbar.Brand>
           
           <Link 
             href="/"
@@ -113,14 +113,12 @@ export default function Nav() {
           </Link>
           
         </Navbar.Brand>
-        <Navbar.Content className={`${styles.container} grid grid-cols-5`} hideIn="xs">
+        <Navbar.Content className='grid grid-cols-5' hideIn="xs">
           <Navbar.Link
-            auto
-            light
+            auto='true'
+            light='true'
             href='/streams'
             css={{
-              px: 0,
-              dflex: "center",
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
@@ -138,7 +136,7 @@ export default function Nav() {
               },
             }}
             // iconRight={icons.chevron}
-            ripple
+            ripple='true'
           >
             Streams
           </Navbar.Link>
@@ -146,8 +144,6 @@ export default function Nav() {
             isActive 
             href="/about-flaky"
             css={{
-              px: 0,
-              dflex: "center",
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
@@ -171,8 +167,6 @@ export default function Nav() {
             isActive 
             href="/stats"
             css={{
-              px: 0,
-              dflex: "center",
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
@@ -196,8 +190,6 @@ export default function Nav() {
             isActive
             href="/links"
             css={{
-              px: 0,
-              dflex: "center",
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
@@ -221,8 +213,6 @@ export default function Nav() {
             isActive
             href="/my-setup"
             css={{
-              px: 0,
-              dflex: "center",
               svg: { pe: "none" },
               // borderRadius: '$xs', // radii.xs
               // border: '$space$1 solid transparent',
@@ -243,7 +233,7 @@ export default function Nav() {
             My Setup
           </Navbar.Link>
         </Navbar.Content>
-        <Navbar.Content>
+        <Navbar.Content className='flex justify-end content-end'>
         <Switch
             checked={isDark}
             shadow
@@ -257,19 +247,17 @@ export default function Nav() {
                 }
             }
             css={{
-            marginRight: '20px',
-            marginLeft: '-130px',
+            // marginRight: '20px',
+            // marginLeft: '-130px',
             color: isDark ? theme.colors.purple500.value : '$white600'
             }}
         />
-          {loggedIn ? (
+          {loggedIn === true ? (
           <Navbar.Link  
               isActive
               color="inherit" 
               href="#"
               css={{
-                px: 0,
-                dflex: "center",
                 svg: { pe: "none" },
                 // borderRadius: '$xs', // radii.xs
                 // border: '$space$1 solid transparent',
@@ -337,8 +325,6 @@ export default function Nav() {
               color="inherit" 
               href="#"
               css={{
-                px: 0,
-                dflex: "center",
                 svg: { pe: "none" },
                 // borderRadius: '$xs', // radii.xs
                 // border: '$space$1 solid transparent',
@@ -410,7 +396,7 @@ export default function Nav() {
               ) : ''}
               <Button 
                 onPress={handler}
-                light
+                light='true'
                 color="white"
                 css={{
                   color: theme.colors.red700.value,
@@ -418,7 +404,7 @@ export default function Nav() {
                     color: theme.colors.red700.value,
                   },
                 }}
-                auto
+                auto='true'
               >
                 {visible === true ? (
                   <Loading
