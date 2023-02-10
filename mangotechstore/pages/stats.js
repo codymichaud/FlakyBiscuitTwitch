@@ -7,11 +7,17 @@ import axios from 'axios';
 import history from "history";
 import {streamImage} from '../../mangotechstore/public/mq3.jpg';
 import { createClient } from 'next-sanity';
+// import { useSelector, useDispatch } from 'react-redux';
+// import channelInfoSlice from '../slices/channelInfoSlice';
 
 
 export default function Stats({wangChungs}) {
-    const [loading, setLoading] = React.useState(false);
-    const [error, setError] = React.useState(false);
+    // const dispatch = useDispatch();
+    // const error = useSelector(state => state.channelInfo);
+    // const loading = useSelector(state => state.channelInfo);
+    // const data = useSelector(state => state.channelInfo);
+    // const [loading, setLoading] = React.useState(false);
+    // const [error, setError] = React.useState(false);
     const [channelID, setChannelID] = React.useState('584412043');
     const [accessToken, setAccessToken] = React.useState('tmdtj8bc9eq383gql7uykjtm1r6lkg');
     const [channelInfo, setChannelInfo] = React.useState(null);
@@ -22,22 +28,19 @@ export default function Stats({wangChungs}) {
     const [streamFollowers, setStreamFollowers] = React.useState(null);
     const [numOfWangChungs, setWangChungs] = React.useState(wangChungs[0].wangChungs);
 
-    React.useEffect(() => {
-        if (channelInfo === null){
-            const getChannelInfo = axios.get(`https://api.twitch.tv/helix/channels?broadcaster_id=${channelID}`,
-            {
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                    'Client-Id': `${clientID}`,
-                }
-            })
-            getChannelInfo.then(res => {
-                console.log('heres some channel data', res)
-                setChannelInfo(res.data.data[0]);
-            })
-        }
-        console.log('channel info', channelInfo);
-    })
+    // React.useEffect(() => {
+    //     dispatch(fetchChannelInfo({ payload: { accessToken, clientID  } }));
+    
+    // }, []);
+    
+    //   if (loading) return <p>Loading...</p>;
+    //   if (error) return <p>Error: {error.message}</p>;
+    //   console.log('checking data', data);
+
+    // React.useEffect(() => {
+        
+    //     // console.log('channel info', channelInfo);
+    // }, [])
 
     React.useEffect(() => {
         if (userInfo === null) {
