@@ -4,7 +4,7 @@ import { useTheme as useNextTheme } from 'next-themes'
 import { useTheme } from '@nextui-org/react';
 import { Card, Loading, Col, Text, Grid, Row, Button, Progress } from '@nextui-org/react';
 import axios from 'axios';
-import history from "history";
+// import history from "history";
 import {streamImage} from '../../mangotechstore/public/mq3.jpg';
 import { createClient } from 'next-sanity';
 // import { useSelector, useDispatch } from 'react-redux';
@@ -189,9 +189,9 @@ export default function Stats({wangChungs}) {
 
     
     
-    if (error === '404') {
-        history.push('/404');
-    }
+    // if (error === '404') {
+    //     history.push('/404');
+    // }
     if (loading === true) {
     return (
         <Loading className='align-items-center' color='secondary' type='points-opacity' />
