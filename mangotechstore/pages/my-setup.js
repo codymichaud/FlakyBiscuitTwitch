@@ -9,9 +9,9 @@ export default function MySetup({ setup }) {
         
             console.log('whats this game', setup)
             return (
-                <Grid.Container lg={4} gap={2}>
+                
                     <Grid size={6}>
-                        <Card css={{ height: '650px' }} className='shadow-md shadow-indigo-500/50'>
+                        <Card css={{ background: 'rgba(0,0,0,0.7)', height: '650px' }} className='shadow-md shadow-indigo-500/50'>
                             <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                             <Col>
                                 <Text size={25} weight="bold" transform="uppercase" color="#ffffffAA">
@@ -70,7 +70,6 @@ export default function MySetup({ setup }) {
                             
                         </Card>
                     </Grid>
-                </Grid.Container>
             );
     }
         return (
@@ -83,9 +82,9 @@ export default function MySetup({ setup }) {
                         quality={100}
                     />
                 </div>
-                <div justify='center'>
+                <Grid.Container lg={4} gap={2}>
                     {renderSetup()}
-                </div>
+                </Grid.Container>
             </div>
         )
 }

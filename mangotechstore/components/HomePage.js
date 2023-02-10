@@ -4,7 +4,7 @@ import { useTheme as useNextTheme } from 'next-themes'
 import { useTheme } from '@nextui-org/react';
 import { Card, Loading, Col, Text, Grid, Row, Button, Progress } from '@nextui-org/react';
 import axios from 'axios';
-import history from "history";
+// import history from "history";
 import {streamImage} from '../../mangotechstore/public/mq3.jpg';
 
 
@@ -22,7 +22,7 @@ export default function HomePage() {
 
     return (
         <div>
-            
+
         </div>
     )
 
