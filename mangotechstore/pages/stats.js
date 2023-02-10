@@ -192,11 +192,11 @@ export default function Stats({wangChungs}) {
     // if (error === '404') {
     //     history.push('/404');
     // }
-    if (loading === true) {
-    return (
-        <Loading className='align-items-center' color='secondary' type='points-opacity' />
-    )
-   }
+//     if (loading === true) {
+//     return (
+//         <Loading className='align-items-center' color='secondary' type='points-opacity' />
+//     )
+//    }
 
     return (
         <div className={styles.homePage}>
