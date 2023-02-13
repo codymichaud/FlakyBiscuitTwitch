@@ -7,12 +7,14 @@ import axios from 'axios';
 // import history from "history";
 import {streamImage} from '../../mangotechstore/public/mq3.jpg';
 import { createClient } from 'next-sanity';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // import channelInfoSlice from '../slices/channelInfoSlice';
+import { storeData } from '../slices/channelInfoSlice';
 
 
 export default function Stats({wangChungs}) {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const channelInfo = useSelector(state => state.channelInfo);
     // const error = useSelector(state => state.channelInfo);
     // const loading = useSelector(state => state.channelInfo);
     // const data = useSelector(state => state.channelInfo);
@@ -20,7 +22,7 @@ export default function Stats({wangChungs}) {
     // const [error, setError] = React.useState(false);
     const [channelID, setChannelID] = React.useState('584412043');
     const [accessToken, setAccessToken] = React.useState('tmdtj8bc9eq383gql7uykjtm1r6lkg');
-    const [channelInfo, setChannelInfo] = React.useState(null);
+    // const [channelInfo, setChannelInfo] = React.useState(null);
     const [channelName, setChannelName] = React.useState('Flaky Biscuit');
     const [streams, setStreams] = React.useState(null);
     const [clientID, setClientID] = React.useState('vyohv0woocxlcesczlgrmeksszijqa');
@@ -28,10 +30,21 @@ export default function Stats({wangChungs}) {
     const [streamFollowers, setStreamFollowers] = React.useState(null);
     const [numOfWangChungs, setWangChungs] = React.useState(wangChungs[0].wangChungs);
 
-    // React.useEffect(() => {
-    //     dispatch(fetchChannelInfo({ payload: { accessToken, clientID  } }));
-    
-    // }, []);
+    React.useEffect(() => {
+        const getChannelInfo = axios.get(`https://api.twitch.tv/helix/channels?broadcaster_id=${channelID}`,
+      {
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Client-Id': `${clientID}`,
+        }
+    })
+      getChannelInfo.then(response => {
+          console.log('what is this response?', response.data.data)
+          dispatch(storeData('test'));
+      })
+        console.log('this is checking info', channelInfo);
+    }, []);
+    console.log('this is checking info??', channelInfo);
     
     //   if (loading) return <p>Loading...</p>;
     //   if (error) return <p>Error: {error.message}</p>;
@@ -57,7 +70,7 @@ export default function Stats({wangChungs}) {
             })
         }
         console.log('user info', userInfo);
-    })
+    }, [])
     React.useEffect(() => {
         if (streams === null) {
             const getStreams = axios.get(`https://api.twitch.tv/helix/videos?user_id=${channelID}`,
@@ -73,7 +86,7 @@ export default function Stats({wangChungs}) {
             })
         }
         console.log('video info', streams);
-    })
+    }, [])
 
     React.useEffect(() => {
         if (streamFollowers === null) {
@@ -89,7 +102,7 @@ export default function Stats({wangChungs}) {
                 setStreamFollowers(respos.data.data);
             })
         }
-    })
+    }, [])
         
     const latestStream = () => {
         const dayjs = require('dayjs')
