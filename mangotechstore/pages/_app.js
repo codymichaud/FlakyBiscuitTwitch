@@ -9,6 +9,7 @@ import { createTheme } from "@nextui-org/react"
 import { Analytics } from '@vercel/analytics/react';
 import Nav from '../components/Nav';
 import React from 'react';
+import { useRouter } from 'next/router';
 
 config.autoAddCss = false
 
@@ -335,12 +336,11 @@ const darkTheme = createTheme({
 })
 
 function MyApp({ Component, pageProps }) {
-  
+  const router = useRouter();
   const [isDark, setIsDark] = React.useState('dark');
   React.useEffect(() => {
     setIsDark(localStorage.getItem('theme'))
 })
-  
   return (
     <NextThemesProvider
     defaultTheme="system"
@@ -352,7 +352,8 @@ function MyApp({ Component, pageProps }) {
   >
     <NextUIProvider>
       <Provider store={store}>
-        <Nav />
+        {router.pathname !== '/404' ?
+        <Nav /> : ''}
         <Component className={`${isDark === 'dark' ? 'dark' : ''}`} {...pageProps} />
       </Provider>
       <Analytics />
