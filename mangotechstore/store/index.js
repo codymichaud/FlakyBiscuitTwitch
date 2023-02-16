@@ -1,20 +1,16 @@
 ;
 
 import { configureStore } from "@reduxjs/toolkit";
-import { createSlice } from "@reduxjs/toolkit";
-// import channelInfoReducer from "../slices/channelInfoSlice";
-import { storeData } from '../slices/channelInfoSlice';
+import { channelInfo } from '../slices/channelInfoSlice';
+import { userInfo } from '../slices/userInfoSlice';
 
 
 // config the store 
 const store = configureStore({
    reducer: {
-      channelInfo: storeData,
+      channelInfo: channelInfo.reducer,
+      userInfo: userInfo.reducer,
    }
 })
-// export default configureStore({
 
-// })
-
-// export default the store 
 export default store;

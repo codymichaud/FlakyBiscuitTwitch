@@ -10,11 +10,13 @@ import { createClient } from 'next-sanity';
 import { useSelector, useDispatch } from 'react-redux';
 // import channelInfoSlice from '../slices/channelInfoSlice';
 import { storeData } from '../slices/channelInfoSlice';
+import { storeInfo } from '../slices/userInfoSlice';
 
 
 export default function Stats({wangChungs}) {
     const dispatch = useDispatch();
     const channelInfo = useSelector(state => state.channelInfo);
+    const userInfo = useSelector(state => state.userInfo);
     // const error = useSelector(state => state.channelInfo);
     // const loading = useSelector(state => state.channelInfo);
     // const data = useSelector(state => state.channelInfo);
@@ -26,7 +28,7 @@ export default function Stats({wangChungs}) {
     const [channelName, setChannelName] = React.useState('Flaky Biscuit');
     const [streams, setStreams] = React.useState(null);
     const [clientID, setClientID] = React.useState('vyohv0woocxlcesczlgrmeksszijqa');
-    const [userInfo, setUserInfo] = React.useState(null);
+    // const [userInfo, setUserInfo] = React.useState(null);
     const [streamFollowers, setStreamFollowers] = React.useState(null);
     const [numOfWangChungs, setWangChungs] = React.useState(wangChungs[0].wangChungs);
 
@@ -39,12 +41,12 @@ export default function Stats({wangChungs}) {
         }
     })
       getChannelInfo.then(response => {
-          console.log('what is this response?', response.data.data)
-          dispatch(storeData('test'));
+          console.log('what is this response?', response.data.data[0])
+          dispatch(storeData(response.data.data[0]));
       })
         console.log('this is checking info', channelInfo);
     }, []);
-    console.log('this is checking info??', channelInfo);
+    console.log('this is checking info??', channelInfo.channelInfo.payload);
     
     //   if (loading) return <p>Loading...</p>;
     //   if (error) return <p>Error: {error.message}</p>;
@@ -56,6 +58,7 @@ export default function Stats({wangChungs}) {
     // }, [])
 
     React.useEffect(() => {
+        dispatch(storeInfo({channelID, accessToken, clientID}));
         if (userInfo === null) {
             const getUserInfo = axios.get(`https://api.twitch.tv/helix/users?id=${channelID}`,
             {
@@ -82,7 +85,7 @@ export default function Stats({wangChungs}) {
             })
             getStreams.then(respo => {
                 console.log('sum video info', respo.data.data)
-                setStreams(respo.data.data);
+                storeInfo(respo.data.data[0]);
             })
         }
         console.log('video info', streams);

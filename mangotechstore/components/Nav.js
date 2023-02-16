@@ -25,6 +25,7 @@ import { faComputer,
 } from '@fortawesome/free-solid-svg-icons';
 import { useTheme as useNextTheme } from 'next-themes'
 import { useTheme } from '@nextui-org/react';
+import queryString from 'query-string';
 
 export default function Nav() {
     const [variant, setVariant] = React.useState("static");
@@ -40,6 +41,7 @@ export default function Nav() {
     const { setTheme } = useNextTheme();
     const [mounted, setMounted] = React.useState(false);
     const { isDark, type } = useTheme();
+    
 
     React.useEffect(() => { setMounted(true) }, []);
 
@@ -104,9 +106,10 @@ export default function Nav() {
             css={{
               textGradient: "45deg, $white 10%, $red600 100%",
             }}
-            weight="bold"
+            // weight="bold"
             b color="inherit" 
             hideIn="xs"
+            className='font-bold'
           > 
             {branding}
             </Text>
@@ -234,7 +237,7 @@ export default function Nav() {
           </Navbar.Link>
         </Navbar.Content>
         <Navbar.Content className='flex justify-end content-end'>
-        <Switch
+        {/* <Switch
             checked={isDark}
             shadow
             size='lg'
@@ -251,7 +254,7 @@ export default function Nav() {
             // marginLeft: '-130px',
             color: isDark ? theme.colors.purple500.value : '$white600'
             }}
-        />
+        /> */}
           {loggedIn === true ? (
           <Navbar.Link  
               isActive
