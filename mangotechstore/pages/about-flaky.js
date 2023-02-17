@@ -1,11 +1,18 @@
-import React from "react";
+import React, { Component } from "react";
 import Nav from '../components/Nav';
 
-export default function TheGanG() {
+export class AboutFlaky extends Component {
+    constructor(props) {
+        super(props);
+    }
     
-    return (
-        <div>
-        <h1>About FlakyBiscuit</h1>
-        </div>
-    );
+    render() {
+        return (
+            <div>
+            <h1>About FlakyBiscuit</h1>
+            </div>
+        );
+    }
 }
+
+export default AboutFlaky;
