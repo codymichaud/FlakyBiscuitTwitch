@@ -1,4 +1,4 @@
-## Mango Tech Store
+## FlakyBiscuit Twitch
 
 ## Table of Contents
 - [Description](#description)
@@ -8,7 +8,7 @@
 - [Screenshot](#screenshot)
 
 ## Description
-An interactive tech ecommerce store built using React, Next.js 13 and NextUi. Users will be able to navigate across the site viewing different catagories of gaming pc items. 
+An interactive Twitch profile built using Redux-toolkit, Next.js 13, NextUI, Tailwind and Sanity.io. Users will be able to navigate across the site viewing past streams, stream stats, channel stats and various games that are played on the channel. 
 
 ## Running app
 - Clone repo
@@ -23,7 +23,7 @@ Email: cody.r.michaud
 
 ## Link
 
-Coming Soon!! :rocket:
+https://flakybiscuit.vercel.app/ :rocket:
 
 ## Screenshot
 
