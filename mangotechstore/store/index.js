@@ -1,15 +1,14 @@
-;
 
 import { configureStore } from "@reduxjs/toolkit";
-import { channelInfo } from '../slices/channelInfoSlice';
-import { userInfo } from '../slices/userInfoSlice';
+import { channelInfoReducer } from '../slices/channelInfoSlice';
+import { userInfoReducer } from '../slices/userInfoSlice';
 
 
 // config the store 
 const store = configureStore({
    reducer: {
-      channelInfo: channelInfo.reducer,
-      userInfo: userInfo.reducer,
+      channelInfo: channelInfoReducer,
+      userInfo: userInfoReducer,
    }
 })
 

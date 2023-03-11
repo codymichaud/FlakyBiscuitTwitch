@@ -26,17 +26,14 @@ import { faComputer,
 import { useTheme as useNextTheme } from 'next-themes'
 import { useTheme, isDark, type, theme } from '@nextui-org/react';
 import queryString from 'query-string';
+import loginModal from './loginModal';
 
 export class Nav extends Component {
   constructor(props) {
     super(props);
     this.handler = this.handler.bind(this);
     this.closeCreateHandler = this.closeCreateHandler.bind(this);
-    this.createAccountHandler = this.createAccountHandler.bind(this);
-    this.closeHandler = this.closeHandler.bind(this);
     this.logout = this.logout.bind(this);
-    this.authCheck = this.authCheck.bind(this);
-    this.authLogin = this.authLogin.bind(this);
   }
   state = {
     variant: "static",
@@ -64,12 +61,6 @@ export class Nav extends Component {
 
     }
 
-    createAccountHandler() {
-      console.log('creating account');
-
-      
-    }
-
     
     handler() {
       this.setState({
@@ -78,52 +69,24 @@ export class Nav extends Component {
       console.log('opened!')
     };
 
-    closeHandler() {
-      this.setState({
-        visible: false,
-      })
-      console.log('closed');
-    };
-
     logout() {
+      console.log('logging out');
       // if (loggedIn === true) {
         this.setState({
           loggedIn: false,
         })
-        console.log('logging out');
+        
       // }
     }
 
-    authLogin(key, value) {
-      if (key === 'email') {
-        console.log('email', value);
-        this.setState({
-          userEmail: value,
-        })
-      } else if (key === 'password') {
-        console.log('password', value);
-        this.setState({
-          userPass: value,
-        })
-      }
-    }
-
-    authCheck() {
-      const { userEmail, userPass, testEmail, testPass } = this.state;
-      console.log('checking email and checking password', userEmail,  userPass)
-      // if (userEmail === testEmail && userPass === testPass) {
-        this.setState({
-          loggedIn: true,
-        })
-        console.log('logged in');
-      // }
-      this.setState({
-        visible: false,
-      })
-    }
     render() {
       const { variant, loggedIn, branding, visible, userEmail, userPass, userName, testEmail, testPass, mounted } = this.state;
       // const { isDark, type, theme } = useTheme();
+      if (visible === true) {
+        return (
+          <loginModal />
+        )
+      }
       return (
           <Navbar
           maxWidth='fluid' 
@@ -353,7 +316,7 @@ export class Nav extends Component {
                           <Dropdown.Item key="help_and_feedback" withDivider>
                             Help & Feedback
                           </Dropdown.Item>
-                          <Dropdown.Item onPress={this.logout} key="logout" color="error" withDivider>
+                          <Dropdown.Item onPress={this.logout} color="error" withDivider>
                             Log Out
                           </Dropdown.Item>
                         </Dropdown.Menu>
@@ -384,63 +347,8 @@ export class Nav extends Component {
                     },
                 }}
               >
-                {visible === true ? (
-                  <Modal
-                  closeButton
-                  aria-labelledby="modal-title"
-                  open={visible}
-                  onClose={this.closeHandler}
-                  blur
-                >
-                  <Modal.Header>
-                    <Text id="modal-title" size={18}>
-                      Welcome to <br />
-                      <Text b size={18}>
-                        Spit Roast GanG
-                      </Text>
-                    </Text>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <Input
-                      onChange={(e) => this.authLogin('email', e.target.value)}
-                      clearable
-                      bordered
-                      fullWidth
-                      color="primary"
-                      size="lg"
-                      placeholder="Email"
-                    />
-                    <Input
-                      onChange={(e) => this.authLogin('password', e.target.value)}
-                      clearable
-                      bordered
-                      fullWidth
-                      color="primary"
-                      size="lg"
-                      placeholder="Password"
-                    />
-                    <Row justify="space-between">
-                      <Checkbox>
-                        <Text size={14}>Remember me</Text>
-                      </Checkbox>
-                      <Text size={14}>Forgot password?</Text>
-                    </Row>
-                  </Modal.Body>
-                  <Modal.Footer>
-                  <Button auto flat color="error" onClick={this.createAccountHandler}>
-                      Create Account
-                    </Button>
-                    <Button auto flat color="error" onClick={this.closeHandler}>
-                      Close
-                    </Button>
-                    <Button auto onPress={this.authCheck()}>
-                      Sign in
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
-                ) : ''}
                 <Button 
-                  onPress={this.handler}
+                  onClick={this.handler}
                   light='true'
                   color="white"
                   css={{

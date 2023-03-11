@@ -1,25 +1,51 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  userInfo: [],
-}
-console.log('made it in  here')
-export const userInfo = createSlice({
-  name: 'userInfo',
-  initialState,
-  reducers: {
-    storeInfo: (state, payload) => {
-        console.log('checking payload', payload)
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.userInfo = payload;
+    userInfo: [],
+    loading: false,
+    error: null,
+  };
+  
+  export const fetchUserInfo = createAsyncThunk(
+    'slice/fetchUserInfo',
+    async () => {
+        const userResponse = axios.get(`https://api.twitch.tv/helix/users?id=${process.env.NEXT_PUBLIC_TWITCH_CHANNEL_ID}`,
+        {
+            headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_TWITCH_ACCESS_TOKEN}`,
+                'Client-Id': `${process.env.NEXT_PUBLIC_TWITCH_CLIENT_ID}`,
+            }
+        })
+      const data = await userResponse.json();
+        console.log('user data', data)
+       return data;
+    }
+  );
+
+  const userInfo = createSlice({
+    name: 'userInfo',
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+          .addMatcher(fetchUserInfo.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+          })
+          .addMatcher(fetchUserInfo.fulfilled, (state, action) => {
+            state.loading = false;
+            state.data = action.payload;
+          })
+          .addMatcher(fetchUserInfo.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error;
+          });
     },
-  },
-})
+  });
+  
+export const userInfoReducer = userInfo.reducer;
+export const { pending: fetchUserInfoPending, fulfilled: fetchUserInfoFulfilled, rejected: fetchUserInfoRejected } = fetchUserInfo;
 
-// Action creators are generated for each case reducer function
-export const { storeInfo } = userInfo.actions
 
+  

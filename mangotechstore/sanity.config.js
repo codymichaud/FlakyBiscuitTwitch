@@ -8,8 +8,8 @@ const dataset = 'production';
 
 export default defineConfig({
   basePath: '/studio',
-  name: 'Spit_Roast_GanG_Content_Studio',
-  title: 'Spit Roast GanG Content Studio',
+  name: 'Flaky_Biscuit_Content_Studio',
+  title: 'Flaky Biscuit Content Studio',
   projectId: 'fm96vt2j',
   dataset: 'production',
   plugins: [deskTool(), visionTool()],
