@@ -1,5 +1,6 @@
 import styles from '../styles/HomePage.module.css'
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import { useTheme as useNextTheme } from 'next-themes'
 import { useTheme } from '@nextui-org/react';
 import { Card, Loading, Col, Text, Grid, Row, Button, Progress } from '@nextui-org/react';
@@ -7,11 +8,15 @@ import axios from 'axios';
 // import history from "history";
 import {streamImage} from '../../mangotechstore/public/mq3.jpg';
 import { createClient } from 'next-sanity';
-import { useSelector, useDispatch } from 'react-redux';
+import { dispatch as useDispatch } from 'react-redux';
 // import channelInfoSlice from '../slices/channelInfoSlice';
-import { storeData } from '../slices/channelInfoSlice';
+import { fetchChannelInfo } from '../slices/channelInfoSlice';
+import { fetchUserInfo } from '../slices/userInfoSlice';
 import { storeInfo } from '../slices/userInfoSlice';
 import PropTypes from 'prop-types';
+import { fetchChannelInfoPending, fetchChannelInfoFulfilled, fetchChannelInfoRejected } from '../slices/channelInfoSlice';
+import { fetchUserInfoPending, fetchUserInfoFulfilled, fetchUserInfoRejected } from '../slices/userInfoSlice';
+
 
 
 export class Stats extends Component {
@@ -20,12 +25,12 @@ export class Stats extends Component {
         // this.latestStream = this.latestStream.bind(this);
         // this.streamGoals = this.streamGoals.bind(this);
     }
+    static propTypes = {
+        channelInfo: PropTypes.object.isRequired,
+      };
     state = {
-        channelID: '584412043',
-        accessToken: 'tmdtj8bc9eq383gql7uykjtm1r6lkg',
         channelName: 'Flaky Biscuit',
         streams: null,
-        clientID: 'vyohv0woocxlcesczlgrmeksszijqa',
         streamFollowers: null,
         error: false,
         loading: false,
@@ -52,7 +57,27 @@ export class Stats extends Component {
     //   })
     //     console.log('this is checking info', channelInfo);
     // }, []);
-    // console.log('this is checking info??', channelInfo.channelInfo.payload);
+    // console.log('this is checking info??', channelInfo.channelInfo.payload.broadcaster_language);
+
+    componentDidMount() {
+        const { fetchChannelInfo, channelInfo } = this.props;
+        const { channelID } = this.state;
+        // console.log('clientID', clientID);
+        fetchChannelInfo(channelID)
+        .then(res => {
+            if (res.type === 'fetchChannelInfo/fulfilled') {
+            console.log('Channel info loaded:', res.payload);
+            fetchChannelInfoFulfilled(res.payload);
+            } else if (res.type === 'fetchChannelInfo/rejected') {
+            console.error('Failed to load channel info:', res.payload);
+            fetchChannelInfoRejected(res.payload);
+            }
+        })
+        .catch((error) => {
+            console.error('Error while loading channel info:', error);
+        });
+        console.log('does this work?', channelInfo)
+      }
     
     //   if (loading) return <p>Loading...</p>;
     //   if (error) return <p>Error: {error.message}</p>;
@@ -63,23 +88,7 @@ export class Stats extends Component {
     //     // console.log('channel info', channelInfo);
     // }, [])
 
-    // React.useEffect(() => {
-    //     dispatch(storeInfo({channelID, accessToken, clientID}));
-    //     if (userInfo === null) {
-    //         const getUserInfo = axios.get(`https://api.twitch.tv/helix/users?id=${channelID}`,
-    //         {
-    //             headers: {
-    //                 'Authorization': `Bearer ${accessToken}`,
-    //                 'Client-Id': `${clientID}`,
-    //             }
-    //         })
-    //         getUserInfo.then(resp => {
-    //             console.log('heres some user data', resp);
-    //             setUserInfo(resp.data.data[0]);
-    //         })
-    //     }
-    //     console.log('user info', userInfo);
-    // }, [])
+    // 
     // React.useEffect(() => {
     //     if (streams === null) {
     //         const getStreams = axios.get(`https://api.twitch.tv/helix/videos?user_id=${channelID}`,
@@ -96,6 +105,8 @@ export class Stats extends Component {
     //     }
     //     console.log('video info', streams);
     // }, [])
+
+    
 
     // React.useEffect(() => {
     //     if (streamFollowers === null) {
@@ -221,6 +232,7 @@ export class Stats extends Component {
 //    }
 
     render() {
+        console.log('in render', this.props.channelInfo)
         return (
             <div className={styles.homePage}>
                 <Grid.Container justify="center">
@@ -271,7 +283,16 @@ export class Stats extends Component {
     }
 }
 
-export default Stats;
+// export default Stats;
+const mapStateToProps = (state) => ({
+   channelInfo: state.channelInfo,
+  });
+  
+  const mapDispatchToProps = {
+    fetchChannelInfo,
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Stats);
 
 Stats.propTypes ={
     wangChungs: PropTypes.array,
