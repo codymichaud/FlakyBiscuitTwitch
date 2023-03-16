@@ -12,6 +12,7 @@ import { dispatch as useDispatch } from 'react-redux';
 // import channelInfoSlice from '../slices/channelInfoSlice';
 import { fetchChannelInfo } from '../slices/channelInfoSlice';
 import { fetchUserInfo } from '../slices/userInfoSlice';
+import { fetchStreamInfo } from '../slices/streamInfoSlice';
 import { storeInfo } from '../slices/userInfoSlice';
 import PropTypes from 'prop-types';
 import { fetchChannelInfoPending, fetchChannelInfoFulfilled, fetchChannelInfoRejected } from '../slices/channelInfoSlice';
@@ -27,6 +28,8 @@ export class Stats extends Component {
     }
     static propTypes = {
         channelInfo: PropTypes.object.isRequired,
+        streamInfo: PropTypes.object.isRequired,
+        userInfo: PropTypes.object.isRequired,
       };
     state = {
         channelName: 'Flaky Biscuit',
@@ -60,10 +63,9 @@ export class Stats extends Component {
     // console.log('this is checking info??', channelInfo.channelInfo.payload.broadcaster_language);
 
     componentDidMount() {
-        const { fetchChannelInfo, channelInfo } = this.props;
-        const { channelID } = this.state;
+        const { fetchChannelInfo, fetchUserInfo, fetchStreamInfo, channelInfo } = this.props;
         // console.log('clientID', clientID);
-        fetchChannelInfo(channelID)
+        fetchChannelInfo()
         .then(res => {
             if (res.type === 'fetchChannelInfo/fulfilled') {
             console.log('Channel info loaded:', res.payload);
@@ -77,16 +79,43 @@ export class Stats extends Component {
             console.error('Error while loading channel info:', error);
         });
         console.log('does this work?', channelInfo)
+
+        fetchUserInfo()
+        .then(res => {
+            if (res.type === 'fetchUserInfo/fulfilled') {
+            console.log('Channel info loaded:', res.payload);
+            fetchUserInfoFulfilled(res.payload);
+            } else if (res.type === 'fetchUserInfo/rejected') {
+            console.error('Failed to load channel info:', res.payload);
+            fetchUserInfoRejected(res.payload);
+            }
+        })
+        .catch((error) => {
+            console.error('Error while loading channel info:', error);
+        }); 
+        
+        fetchStreamInfo()
+        .then(res => {
+            if (res.type === 'fetchStreamInfo/fulfilled') {
+            console.log('Channel info loaded:', res.payload);
+            fetchStreamInfoFulfilled(res.payload);
+            } else if (res.type === 'fetchStreamInfo/rejected') {
+            console.error('Failed to load channel info:', res.payload);
+            fetchStreamInfoRejected(res.payload);
+            }
+        })
+        .catch((error) => {
+            console.error('Error while loading channel info:', error);
+        }); 
       }
+
+      
     
     //   if (loading) return <p>Loading...</p>;
     //   if (error) return <p>Error: {error.message}</p>;
     //   console.log('checking data', data);
 
-    // React.useEffect(() => {
-        
-    //     // console.log('channel info', channelInfo);
-    // }, [])
+    
 
     // 
     // React.useEffect(() => {
@@ -124,47 +153,48 @@ export class Stats extends Component {
     //     }
     // }, [])
         
-    // latestStream() {
-    //     const dayjs = require('dayjs')
-    //     console.log('checking for latest stream', streams);
-    //     if (streams === null || streams === []) {
-    //         return false;
-    //     }
-    //     const newStream = streams[0];
-    //     console.log('new stream', newStream);
-    //     return (
-    //         <Card isPressable css={{ w: "100%", h: "400px", mt: '4rem', mb: '3rem' }}>
-    //         <Card.Body css={{ p: 0 }}>
-    //           <Card.Image
-    //             src={newStream.thumbnail_url}
-    //             width="100%"
-    //             height="90%"
-    //             objectFit="cover"
-    //             alt="Card example background"
-    //           />
-    //         </Card.Body>
-    //         <Card.Footer
-    //           isBlurred
-    //           css={{
-    //             position: "absolute",
-    //             bgBlur: "#ffffff66",
-    //             borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
-    //             bottom: 0,
-    //             zIndex: 1,
-    //           }}
-    //         >
-    //           <Col sm={12}>
-    //             <Text color="#000" size={14}>
-    //                 {dayjs(newStream.created_at).format('dddd MMMM D, YYYY')}
-    //             </Text>
-    //             <Text color="#000" size={14} css={{ mt: '5px' }}>
-    //                 {newStream.title}
-    //             </Text>
-    //           </Col>
-    //         </Card.Footer>
-    //       </Card>
-    //     )
-    // }
+    latestStream() {
+        const { streamInfo } =  this.props;
+
+        const { streams } = this.state;
+        console.log('checkingy payload', streamInfo);
+        const dayjs = require('dayjs');
+        
+        // const newStream = streams;
+        // console.log('new stream', newStream);
+        // return (
+        //     <Card isPressable css={{ w: "100%", h: "400px", mt: '4rem', mb: '3rem' }}>
+        //     <Card.Body css={{ p: 0 }}>
+        //       <Card.Image
+        //         src={newStream.thumbnail_url}
+        //         width="100%"
+        //         height="90%"
+        //         objectFit="cover"
+        //         alt="Card example background"
+        //       />
+        //     </Card.Body>
+        //     <Card.Footer
+        //       isBlurred
+        //       css={{
+        //         position: "absolute",
+        //         bgBlur: "#ffffff66",
+        //         borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
+        //         bottom: 0,
+        //         zIndex: 1,
+        //       }}
+        //     >
+        //       <Col sm={12}>
+        //         <Text color="#000" size={14}>
+        //             {dayjs(newStream.created_at).format('dddd MMMM D, YYYY')}
+        //         </Text>
+        //         <Text color="#000" size={14} css={{ mt: '5px' }}>
+        //             {newStream.title}
+        //         </Text>
+        //       </Col>
+        //     </Card.Footer>
+        //   </Card>
+        // )
+    }
 
     // streamGoals() {
     //     if (streamFollowers === null || streams === null) {
@@ -232,6 +262,7 @@ export class Stats extends Component {
 //    }
 
     render() {
+        const { channelInfo, streamInfo } = this.props;
         console.log('in render', this.props.channelInfo)
         return (
             <div className={styles.homePage}>
@@ -268,13 +299,10 @@ export class Stats extends Component {
                             </Card.Body>
                         </Card>
                     </Grid>
-                    {/* <Grid xs={4}>}
-                        {/* {streams === null || streams === [] ?  */}
-                            {/*{this.latestStream()}}
-                            {/* : ''
-                        } */}
-                    {/*</Grid>
                     <Grid xs={4}>
+                        {this.latestStream()}
+                    </Grid>
+                    {/*<Grid xs={4}>
                         {this.streamGoals()}
                     </Grid> */}
                 </Grid.Container>
@@ -286,10 +314,14 @@ export class Stats extends Component {
 // export default Stats;
 const mapStateToProps = (state) => ({
    channelInfo: state.channelInfo,
+   userInfo: state.userInfo,
+   streamInfo: state.streamInfo,
   });
   
   const mapDispatchToProps = {
     fetchChannelInfo,
+    fetchUserInfo,
+    fetchStreamInfo,
   };
   
   export default connect(mapStateToProps, mapDispatchToProps)(Stats);

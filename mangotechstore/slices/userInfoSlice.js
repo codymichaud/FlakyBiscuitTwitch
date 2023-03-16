@@ -35,7 +35,7 @@ const initialState = {
           })
           .addMatcher(fetchUserInfo.fulfilled, (state, action) => {
             state.loading = false;
-            state.data = action.payload;
+            state.userInfo = action.payload;
           })
           .addMatcher(fetchUserInfo.rejected, (state, action) => {
             state.loading = false;
