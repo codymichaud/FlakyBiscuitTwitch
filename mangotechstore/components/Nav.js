@@ -32,8 +32,6 @@ export class Nav extends Component {
   constructor(props) {
     super(props);
     this.handler = this.handler.bind(this);
-    this.closeCreateHandler = this.closeCreateHandler.bind(this);
-    this.logout = this.logout.bind(this);
   }
   state = {
     variant: "static",
@@ -57,36 +55,17 @@ export class Nav extends Component {
 
     
 
-   closeCreateHandler() {
-
-    }
-
     
     handler() {
-      this.setState({
-        visible: true,
-      })
+      // this.setState({
+      //   visible: true,
+      // })
       console.log('opened!')
     };
-
-    logout() {
-      console.log('logging out');
-      // if (loggedIn === true) {
-        this.setState({
-          loggedIn: false,
-        })
-        
-      // }
-    }
 
     render() {
       const { variant, loggedIn, branding, visible, userEmail, userPass, userName, testEmail, testPass, mounted } = this.state;
       // const { isDark, type, theme } = useTheme();
-      if (visible === true) {
-        return (
-          <loginModal />
-        )
-      }
       return (
           <Navbar
           maxWidth='fluid' 

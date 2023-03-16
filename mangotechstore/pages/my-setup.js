@@ -25,7 +25,7 @@ export class MySetup extends Component {
                         </Text>
                         <div size={20} weight="bold">
                             <div>
-                                <ul className="list-disc">
+                                <ul className="list-none">
                                     <li>
                                         <p className="font-bold">CPU: {setup[0].pcCPU}</p>
                                     </li>
