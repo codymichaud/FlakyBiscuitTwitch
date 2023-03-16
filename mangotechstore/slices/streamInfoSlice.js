@@ -37,7 +37,7 @@ const initialState = {
             state.streamInfo.error = null;
           })
           .addMatcher(fetchStreamInfo.fulfilled, (state, action) => {
-            console.log('checkingy payload', action.payload)
+            // console.log('checkingy payload', action.payload)
             state.streamInfo.loading = false;
             state.streamInfo.gameName = action.payload;
           })

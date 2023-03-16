@@ -30,7 +30,7 @@ export class Streams extends Component {
 
     renderStreamBoxes(game) {
         
-            console.log('whats this game', game)
+            // console.log('whats this game', game)
             return (
                 <Grid.Container lg={12} gap={2}>
                     <Grid xs={12} sm={12}>
