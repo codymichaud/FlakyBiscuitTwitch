@@ -18,7 +18,7 @@ const initialState = {
             }
         })
       const data = await userResponse.json();
-        console.log('user data', data)
+        // console.log('user data', data)
        return data;
     }
   );

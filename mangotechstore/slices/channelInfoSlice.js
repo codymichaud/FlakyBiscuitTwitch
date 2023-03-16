@@ -35,11 +35,11 @@ const initialState = {
             state.error = null;
           })
           .addMatcher(fetchChannelInfo.fulfilled, (state, action) => {
-            console.log('action.payload', action)
-            console.log('checking state', state)
+            // console.log('action.payload', action)
+            // console.log('checking state', state)
             state.loading = false;
             state.channelInfo = action.payload;
-            console.log(state.channelInfo)
+            // console.log(state.channelInfo)
           })
           .addMatcher(fetchChannelInfo.rejected, (state, action) => {
             state.loading = false;

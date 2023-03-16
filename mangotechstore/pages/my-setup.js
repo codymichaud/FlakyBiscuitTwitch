@@ -14,7 +14,7 @@ export class MySetup extends Component {
 
     renderSetup(setup) {
         
-        console.log('whats this game', this.props.setup)
+        // console.log('whats this game', this.props.setup)
         return (
             <Grid size={6}>
                 <Card css={{ background: 'rgba(0,0,0,0.7)', height: '650px' }} className='shadow-md shadow-indigo-500/50'>

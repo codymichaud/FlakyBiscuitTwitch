@@ -78,7 +78,7 @@ export class Stats extends Component {
         .catch((error) => {
             console.error('Error while loading channel info:', error);
         });
-        console.log('does this work?', channelInfo)
+        // console.log('does this work?', channelInfo)
 
         fetchUserInfo()
         .then(res => {
@@ -157,7 +157,7 @@ export class Stats extends Component {
         const { streamInfo } =  this.props;
 
         const { streams } = this.state;
-        console.log('checkingy payload', streamInfo);
+        // console.log('checkingy payload', streamInfo);
         const dayjs = require('dayjs');
         
         // const newStream = streams;
@@ -263,7 +263,7 @@ export class Stats extends Component {
 
     render() {
         const { channelInfo, streamInfo } = this.props;
-        console.log('in render', this.props.channelInfo)
+        // console.log('in render', this.props.channelInfo)
         return (
             <div className={styles.homePage}>
                 <Grid.Container justify="center">
