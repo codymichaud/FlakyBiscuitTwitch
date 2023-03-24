@@ -10,6 +10,8 @@ import { Analytics } from '@vercel/analytics/react';
 import Nav from '../components/Nav';
 import React from 'react';
 import { useRouter } from 'next/router';
+import { SessionProvider } from "next-auth/react"
+import CreateAccountModal from '../components/loginModal';
 
 config.autoAddCss = false
 
@@ -335,30 +337,37 @@ const darkTheme = createTheme({
   }
 })
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: {session, ...pageProps} }) {
   const router = useRouter();
   const [isDark, setIsDark] = React.useState('dark');
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [openLogin, setOpenLogin] = React.useState(false);
+  console.log('checking open login', openLogin)
   React.useEffect(() => {
     setIsDark(localStorage.getItem('theme'))
 })
+
   return (
-    <NextThemesProvider
-    defaultTheme="system"
-    attribute="class"
-    value={{
-      light: lightTheme.className,
-      dark: darkTheme.className
-    }}
-  >
-    <NextUIProvider>
-      <Provider store={store}>
-        {router.pathname !== '/404' ?
-        <Nav /> : ''}
-        <Component className={`${isDark === 'dark' ? 'dark' : ''}`} {...pageProps} />
-      </Provider>
-      <Analytics />
-    </NextUIProvider>
-  </NextThemesProvider>
+    <SessionProvider session={session}>
+      <NextThemesProvider
+      defaultTheme="system"
+      attribute="class"
+      value={{
+        light: lightTheme.className,
+        dark: darkTheme.className
+      }}
+    >
+      <NextUIProvider>
+        <Provider store={store}>
+          {router.pathname !== '/404' ?
+          <Nav openLogin={setIsOpen} /> : ''}
+          <CreateAccountModal isOpen={isOpen} />
+          <Component className={`${isDark === 'dark' ? 'dark' : ''}`} {...pageProps} />
+        </Provider>
+        <Analytics />
+      </NextUIProvider>
+    </NextThemesProvider>
+  </SessionProvider>
   )
 }
 

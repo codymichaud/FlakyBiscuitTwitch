@@ -4,6 +4,7 @@ import { Link, Grid, Col, Text, Card, Image } from "@nextui-org/react";
 import Particles from 'react-particles';
 import { loadFull } from 'tsparticles';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 
 
 export class Streams extends Component {
@@ -32,29 +33,34 @@ export class Streams extends Component {
         
             // console.log('whats this game', game)
             return (
-                <Grid.Container lg={12} gap={2}>
-                    <Grid xs={12} sm={12}>
-                        <Link href={`/streams/${game.firstGameHref}`}>
-                            <Card className='shadow-md shadow-indigo-500/50'>
-                                <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
-                                <Col>
-                                    <Text size={25} weight="bold" transform="uppercase" color="#ffffffAA">
-                                    {game.firstGameTitle}
-                                    </Text>
-                                </Col>
-                                </Card.Header>
-                                <Image
-                                src={game.firstGameImgLink}
-                                showSkeleton
-                                objectFit="cover"
-                                width="100%"
-                                height={340}
-                                alt="Card image background"
-                                />
-                            </Card>
-                        </Link>
-                    </Grid>
-                </Grid.Container>
+                <div
+                key={uuidv4()}
+                id={uuidv4()}
+                >
+                    <Grid.Container lg={12} gap={2}>
+                        <Grid xs={12} sm={12}>
+                            <Link href={`/streams/${game.firstGameHref}`}>
+                                <Card className='shadow-md shadow-indigo-500/50'>
+                                    <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
+                                    <Col>
+                                        <Text size={25} weight="bold" transform="uppercase" color="#ffffffAA">
+                                        {game.firstGameTitle}
+                                        </Text>
+                                    </Col>
+                                    </Card.Header>
+                                    <Image
+                                    src={game.firstGameImgLink}
+                                    showSkeleton
+                                    objectFit="cover"
+                                    width="100%"
+                                    height={340}
+                                    alt="Card image background"
+                                    />
+                                </Card>
+                            </Link>
+                        </Grid>
+                    </Grid.Container>
+                </div>
             );
     }
 
