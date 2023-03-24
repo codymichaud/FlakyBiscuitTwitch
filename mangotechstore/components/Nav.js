@@ -14,12 +14,11 @@ import {
   Switch,
   Loading,
 } from "@nextui-org/react";
-import  { React,Component, useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComputer, 
-    faCartShopping, 
+import PropTypes from 'prop-types';
+import {
     faRightToBracket,
-    faRightFromBracket,
     faMoon,
     faSun, 
 } from '@fortawesome/free-solid-svg-icons';
@@ -27,18 +26,34 @@ import { useTheme as useNextTheme } from 'next-themes'
 import { useTheme, isDark, type, theme } from '@nextui-org/react';
 import queryString from 'query-string';
 import loginModal from './loginModal';
+import { Router, useRouter } from 'next/router';
+import { useSession, signOut } from 'next-auth/react';
 
-export class Nav extends Component {
-  constructor(props) {
-    super(props);
-    this.handler = this.handler.bind(this);
+
+export default function Nav({ openLogin }) {
+  const [variant, setVariant] = React.useState('static');
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [branding, setBranding] = React.useState('Flaky Biscuit');
+  const [visible, setVisible] = React.useState(false);
+  const [userEmail, setUserEmail] = React.useState('FlakyBiscuit');
+  const [userPass, setUserPass] = React.useState('');
+  const [userName, setUserName] = React.useState('CodyM');
+  const [testEmail, setTestEmail] = React.useState('FlakyBiscuit');
+  const [testPass, setTestPass] = React.useState('123456');
+  const [mounted, setMounted] = React.useState(false);
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  if (session) {
+    console.log('checking sessions', session)
   }
-  state = {
+
+  const state = {
     variant: "static",
     loggedIn: false,
     branding: 'Flaky Biscuit',
     visible: false,
-    userEmail: '',
+    userEmail: 'FlakyBiscuit',
     userPass: '',
     userName: 'CodyM',
     testEmail: 'FlakyBiscuit',
@@ -48,28 +63,28 @@ export class Nav extends Component {
     
     
 
-  componentDidMount() {
-    // this.setState({ mounted: true });
-    // console.log('checking theme', isDark, type);
+  // componentDidMount() => {
+  //   // this.setState({ mounted: true });
+  //   // console.log('checking theme', isDark, type);
+  // }
+
+    
+  const sendToUserProfile = () => {
+    console.log('made it in the function')
   }
-
     
+  const handler = () => {
+    // this.setState({
+    //   visible: true,
+    // })
+    console.log('opened!')
+  };
 
-    
-    handler() {
-      // this.setState({
-      //   visible: true,
-      // })
-      console.log('opened!')
-    };
-
-    render() {
-      const { variant, loggedIn, branding, visible, userEmail, userPass, userName, testEmail, testPass, mounted } = this.state;
-      // const { isDark, type, theme } = useTheme();
+    const { isDark, type, theme } = useTheme();
       return (
           <Navbar
           maxWidth='fluid' 
-          variant={variant}
+          variant={state.variant}
           className='flex justify-start dark:bg-black'
           css={{
             borderBottom: '1px solid $gray50',
@@ -236,7 +251,7 @@ export class Nav extends Component {
               color: isDark ? theme.colors.purple500.value : '$white600'
               }}
           /> */}
-            {loggedIn === true ? (
+            {session && session.user ? (
             <Navbar.Link  
                 isActive
                 color="inherit" 
@@ -285,18 +300,25 @@ export class Nav extends Component {
                               {userEmail}
                             </Text>
                           </Dropdown.Item>
-                          <Dropdown.Item key="settings" withDivider>
-                            My Profile
+                          <Dropdown.Item key="user-profile" withDivider>
+                            <Link href='/profile' className='text-white'>
+                              My Profile
+                            </Link>
                           </Dropdown.Item>
-                          <Dropdown.Item key="analytics" withDivider>
-                            Change Password
+                          <Dropdown.Item key="change-password" withDivider>
+                            <Link href='/change-password' className='text-white'>
+                              Change Password
+                            </Link>
                           </Dropdown.Item>
-                          <Dropdown.Item key="system">Wishlist</Dropdown.Item>
-                          <Dropdown.Item key="help_and_feedback" withDivider>
-                            Help & Feedback
+                          <Dropdown.Item key="Wishlist">
+                            <Link className='text-white' href='/game-wishlist'>
+                              Wishlist
+                            </Link>
                           </Dropdown.Item>
-                          <Dropdown.Item onPress={this.logout} color="error" withDivider>
-                            Log Out
+                          <Dropdown.Item key='logout' color="error" withDivider>
+                            <Button onClick={() => signOut()} className='z-50 text-left'>
+                              Log Out
+                            </Button>
                           </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
@@ -327,7 +349,10 @@ export class Nav extends Component {
                 }}
               >
                 <Button 
-                  onClick={this.handler}
+                  onClick={() => {
+                    openLogin(true);
+                    setLoggedIn(true)
+                  }}
                   light='true'
                   color="white"
                   css={{
@@ -338,25 +363,18 @@ export class Nav extends Component {
                   }}
                   auto='true'
                 >
-                  {visible === true ? (
-                    <Loading
-                      color='$white'
-                      size='sm'
-                    />
-                  ) : <FontAwesomeIcon size='xl' color={theme.colors.white.value} 
-                  css={{
-                    color: theme.colors.red700.value,
-                      '&:hover': {
-                        color: theme.colors.red700.value,
-                      },
-                  }} icon={faRightToBracket} />}
+                  <FontAwesomeIcon size='xl' color={theme.colors.white.value} 
+                    css={{
+                      color: theme.colors.red700.value,
+                        '&:hover': {
+                          color: theme.colors.red700.value,
+                        },
+                    }} icon={faRightToBracket} 
+                  />
                 </Button>
             </Navbar.Link>
             )}
           </Navbar.Content>
         </Navbar>
       )
-    }
 };
-
-export default Nav;
