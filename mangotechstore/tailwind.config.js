@@ -12,6 +12,9 @@ module.exports = {
         'redbull-blue': '#1C2A53',
         'mclaren-orange': '#F67600',
         'alpine-blue': '#1742B2',
+        'alpha-tauri-white': '#FEFDFC',
+        'aston-martin-green': '#01525E',
+        'romeo-red': '#D11040',
       }
     },
   },

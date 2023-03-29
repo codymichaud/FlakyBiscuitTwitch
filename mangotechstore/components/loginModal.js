@@ -11,7 +11,7 @@ import {
   faTwitch,
   faGithub,
   faDiscord,
-  faBattleNet,
+  faFacebook,
  } from '@fortawesome/free-brands-svg-icons'
 import Link from 'next/link';
 
@@ -28,12 +28,7 @@ export default function CreateAccountModal({ isOpen }) {
       verifyTestName: 'codym',
     }
 
-    // componentDidMount() {
-    //   console.log('we have opened!')
-    //   this.setState({
-    //     modalOpen: this.props.isOpen,
-    //   })
-    // }
+    
     React.useEffect(() => {
       if (isOpen === true) {
         setIsVisible(true);
@@ -51,21 +46,9 @@ export default function CreateAccountModal({ isOpen }) {
     
   }
 
-  const authCheck = () => {
-    const { userEmail, userPass, verifyPass, verifyTestName } = this.state;
-    if ((userEmail === verifyTestName) && (userPass === verifyPass)) {
-      
-    }
-  }
-
-
-    const closeHandler = () => {
-        
-      };
-
       const createAccountHandler = async () => {
         setIsVisible(false)
-        await router.push('/create-account');
+        router.push('/create-account');
         
         console.log('time to create an account')
        
@@ -101,7 +84,7 @@ export default function CreateAccountModal({ isOpen }) {
                   <Modal.Body>
                     <Input
                       onChange={(e) => {
-                        this.authEmailLogin('email', e.target.value);
+                        authEmailLogin('email', e.target.value);
                       }}
                       clearable
                       bordered
@@ -112,7 +95,7 @@ export default function CreateAccountModal({ isOpen }) {
                     />
                     <Input.Password
                       onChange={(e) => {
-                        this.authPassLogin('password', e.target.value)
+                        authPassLogin('password', e.target.value)
                       }}
                       clearable
                       bordered
@@ -141,7 +124,7 @@ export default function CreateAccountModal({ isOpen }) {
                           color='error' 
                           bordered 
                           
-                          // onPress={this.authCheck}
+                          // onPress={authCheck}
                         >
                           Sign in
                         </Button>
@@ -151,7 +134,7 @@ export default function CreateAccountModal({ isOpen }) {
                   <Modal.Footer>
                   <Row justify='center' alignContent='flex-start'>
                     <Text>
-                      Orrrrrrr 😎 try one of these <FontAwesomeIcon className='ml-3' size='2xl' icon={faTurnDown} beatFade />
+                      Or login with <FontAwesomeIcon className='ml-3' size='2xl' icon={faTurnDown} beatFade />
                     </Text>
                   </Row>
                   <Row className='mt-10' justify='center'>
@@ -168,7 +151,7 @@ export default function CreateAccountModal({ isOpen }) {
                     <Button
                       size='sm'
                       onClick={() => signIn('battlenet', {callbackUrl: 'http://localhost:3000'})}
-                      icon={<FontAwesomeIcon size='2xl' icon={faBattleNet} />} 
+                      icon={<FontAwesomeIcon size='2xl' icon={faFacebook} />} 
                     />
                     <Button
                       size='sm'

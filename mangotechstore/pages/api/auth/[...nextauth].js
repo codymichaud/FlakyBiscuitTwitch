@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import DiscordProvider from "next-auth/providers/discord";
 import TwitchProvider from "next-auth/providers/twitch";
-import BattleNetProvider from "next-auth/providers/battlenet";
+import FacebookProvider from "next-auth/providers/facebook";
 
 export const authOptions = {
     providers: [
@@ -20,10 +20,10 @@ export const authOptions = {
             clientSecret: process.env.NEXT_PUBLIC_DISCORD_CLIENT_SECRET,
             redirectUri: 'http://localhost:3000/api/auth/callback/discord',
         }),
-        BattleNetProvider({
-            clientId: process.env.BATTLENET_CLIENT_ID,
-            clientSecret: process.env.BATTLENET_CLIENT_SECRET,
-            issuer: process.env.BATTLENET_ISSUER
+        FacebookProvider({
+            clientId: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_SECRET,
+            // redirectUri: 'http://localhost:3000/api/auth/callback/facebook',
         }),
     ],
     callbacks: {
