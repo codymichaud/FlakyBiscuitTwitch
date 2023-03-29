@@ -144,7 +144,7 @@ export class F1 extends Component {
                                 </Popover.Content>
                             </Popover>
                             <Image 
-                                src='/Images/alpine-a522.jpeg'
+                                src='/Images/alphaTauri-at04.jpeg'
                                 layout='fill'
                                 objectFit='cover'
                                 quality={100}
@@ -159,14 +159,14 @@ export class F1 extends Component {
                         <div className="absolute z-10">
                             <Popover>
                                 <Popover.Trigger>
-                                    <Button className='bg-tifosi-red'>Click me</Button>
+                                    <Button className='bg-alpha-tauri-white'>Click me</Button>
                                 </Popover.Trigger>
                                 <Popover.Content>
                                     <Text className='p-3'>Popover content</Text>
                                 </Popover.Content>
                             </Popover>
                             <Image 
-                                src='/Images/alpine-a522.jpeg'
+                                src='/Images/amr23.jpeg'
                                 layout='fill'
                                 objectFit='cover'
                                 quality={100}
@@ -181,14 +181,14 @@ export class F1 extends Component {
                         <div className="absolute z-10">
                             <Popover>
                                 <Popover.Trigger>
-                                    <Button className='bg-tifosi-red'>Click me</Button>
+                                    <Button className='bg-romeo-red'>Click me</Button>
                                 </Popover.Trigger>
                                 <Popover.Content>
                                     <Text className='p-3'>Popover content</Text>
                                 </Popover.Content>
                             </Popover>
                             <Image 
-                                src='/Images/alpine-a522.jpeg'
+                                src='/Images/alpha-c43.jpeg'
                                 layout='fill'
                                 objectFit='cover'
                                 quality={100}
@@ -210,7 +210,7 @@ export class F1 extends Component {
                                 </Popover.Content>
                             </Popover>
                             <Image 
-                                src='/Images/alpine-a522.jpeg'
+                                src='/Images/fw45-williams.jpeg'
                                 layout='fill'
                                 objectFit='cover'
                                 quality={100}
@@ -257,7 +257,11 @@ export class F1 extends Component {
                         <Button className='bg-redbull-blue' onClick={() => this.handleTeamSelect('RedBull')}>Red Bull</Button>
                         <Button className='bg-mclaren-orange' onClick={() => this.handleTeamSelect('McLaren')}>McLaren</Button>
                         <Button className='bg-alpine-blue' onClick={() => this.handleTeamSelect('Alpine')}>Alpine</Button>
-                        <Button className='bg-tifosi-red' onClick={() => this.handleTeamSelect('AlphaTauri')}>Alpha Tauri</Button>
+                        <Button className='bg-alpha-tauri-white text-black' onClick={() => this.handleTeamSelect('AlphaTauri')}>Alpha Tauri</Button>
+                        <Button className='bg-aston-martin-green' onClick={() => this.handleTeamSelect('AstonMartin')}>Aston Martin</Button>
+                        <Button className='bg-romeo-red' onClick={() => this.handleTeamSelect('AlfaRomeo')}>Alfa Romeo</Button>
+                        <Button className='bg-tifosi-red' onClick={() => this.handleTeamSelect('Williams')}>Williams</Button>
+                        <Button className='bg-tifosi-red' onClick={() => this.handleTeamSelect('Haas')}>Haas</Button>
                     </div>
                 </Collapse>
             {/* </Collapse.Group> */}
