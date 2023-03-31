@@ -11,18 +11,18 @@ import { defineField, defineType } from 'sanity';
 //             type: 'number',
 //         }
 //     ]
-    
+
 // }
 
 export default {
-    name: 'wangChungs',
-    type: 'document',
-    title: 'Wang Chungs',
-    fields: [
-      {
-        name: 'numOfWangChungs',
-        type: 'number',
-        title: 'Number of Wang Chungs'
-      }
-    ]
-  }
+  name: 'wangChungs',
+  type: 'document',
+  title: 'Wang Chungs',
+  fields: [
+    {
+      name: 'numOfWangChungs',
+      type: 'number',
+      title: 'Number of Wang Chungs',
+    },
+  ],
+};

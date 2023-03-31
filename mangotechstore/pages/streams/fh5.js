@@ -1,24 +1,24 @@
-import React, { Component } from "react";
-import { Image } from "@nextui-org/react";
+import React, { Component } from 'react';
+import { Image } from '@nextui-org/react';
 
 export class FH5 extends Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return (
-            <div>
-                <div className="h-screen bg-fixed">
-                    <div className="absolute z-9 bg-fixed">
-                        <Image 
-                            src='/Images/horizon5.png'
-                            layout='fill'
-                            objectFit='cover'
-                            quality={100}
-                        />
-                    </div>
-                    {/* <Grid.Container justify="start">
+  render() {
+    return (
+      <div>
+        <div className='h-screen bg-fixed'>
+          <div className='absolute z-9 bg-fixed'>
+            <Image
+              src='/Images/horizon5.png'
+              layout='fill'
+              objectFit='cover'
+              quality={100}
+            />
+          </div>
+          {/* <Grid.Container justify="start">
                         <Grid xs={3}>
                             <Card
                             css={{
@@ -54,8 +54,8 @@ export class FH5 extends Component {
                             </Card>
                         </Grid>
                     </Grid.Container> */}
-                </div>
-                {/* <div className="mt-86 h-screen bg-fixed">
+        </div>
+        {/* <div className="mt-86 h-screen bg-fixed">
                     <div className="absolute z-10">
                         <h1>
                             DO dis show
@@ -68,9 +68,9 @@ export class FH5 extends Component {
                         /> 
                     </div>
                 </div> */}
-            </div>
-        )
-    }
+      </div>
+    );
+  }
 }
 
 export default FH5;

@@ -3,7 +3,7 @@
 //     loading: false,
 //     error: null,
 //   };
-  
+
 //   const dataSlice = {
 //     name: 'data',
 //     reducer: (state = initialState, action) => {
@@ -48,6 +48,5 @@
 //       },
 //     },
 //   };
-  
+
 //   export default dataSlice;
-  

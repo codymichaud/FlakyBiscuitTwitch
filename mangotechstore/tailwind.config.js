@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-],
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
       colors: {
@@ -15,8 +15,8 @@ module.exports = {
         'alpha-tauri-white': '#FEFDFC',
         'aston-martin-green': '#01525E',
         'romeo-red': '#D11040',
-      }
+      },
     },
   },
   plugins: [],
-}
+};

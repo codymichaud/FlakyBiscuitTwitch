@@ -10,6 +10,9 @@
   width: 70%;
 } */
 
+.svg-inline--fa.fa-moon {
+}
+
 .footer {
   display: flex;
   flex: 1;
@@ -25,8 +28,6 @@
   align-items: center;
   flex-grow: 1;
 }
-
-
 
 @media (max-width: 600px) {
   .grid {
