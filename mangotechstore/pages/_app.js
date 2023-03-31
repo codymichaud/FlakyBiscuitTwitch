@@ -5,15 +5,16 @@ import { NextUIProvider } from '@nextui-org/react';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import { createTheme } from "@nextui-org/react"
+import { createTheme } from '@nextui-org/react';
 import { Analytics } from '@vercel/analytics/react';
 import Nav from '../components/Nav';
 import React from 'react';
 import { useRouter } from 'next/router';
-import { SessionProvider } from "next-auth/react"
+import { SessionProvider } from 'next-auth/react';
 import CreateAccountModal from '../components/loginModal';
+import ErrorBoundary from '../components/ErrorBoundary';
 
-config.autoAddCss = false
+config.autoAddCss = false;
 
 const lightTheme = createTheme({
   type: 'light',
@@ -57,38 +58,37 @@ const lightTheme = createTheme({
       backgroundContrast: '#FFFFFF',
       foreground: '#FFFFFF',
       text: '#11181C',
-
     }, // optional
     shadows: {
       xs: '0 2px 8px 1px rgb(104 112 118 / 0.07), 0 1px 1px -1px rgb(104 112 118 / 0.04)',
       sm: '0 2px 8px 2px rgb(104 112 118 / 0.07), 0 2px 4px -1px rgb(104 112 118 / 0.04)',
       md: '0 12px 20px 6px rgb(104 112 118 / 0.08)',
       lg: '0 12px 34px 6px rgb(104 112 118 / 0.18)',
-      xl: '0 25px 65px 0px rgb(104 112 118 / 0.35)'
+      xl: '0 25px 65px 0px rgb(104 112 118 / 0.35)',
     },
-     // to use along with css dropShadow utility
+    // to use along with css dropShadow utility
     dropShadows: {
       xs: 'drop-shadow(0 2px 4px rgb(104 112 118 / 0.07)) drop-shadow(0 1px 1px rgb(104 112 118 / 0.04))',
       sm: 'drop-shadow(0 2px 8px rgb(104 112 118 / 0.07)) drop-shadow(0 2px 4px rgb(104 112 118 / 0.04))',
       md: 'drop-shadow(0 4px 12px rgb(104 112 118 / 0.08)) drop-shadow(0 20px 8px rgb(104 112 118 / 0.04))',
       lg: 'drop-shadow(0 12px 24px rgb(104 112 118 / 0.15)) drop-shadow(0 12px 14px rgb(104 112 118 / 0.1))',
-      xl: 'drop-shadow(0 25px 34px rgb(104 112 118 / 0.35))'
+      xl: 'drop-shadow(0 25px 34px rgb(104 112 118 / 0.35))',
     },
     fontSizes: {
-      xs: '0.75rem', /* 12px */
-      sm: '0.875rem', /* 14px */
-      base: '1rem', /* 16px */
-      md: '1rem', /* 16px */
-      lg: '1.125rem', /* 18px */
-      xl: '1.25rem', /* 20px */
-      '2xl': '1.5rem', /* 24px */
-      '3xl': '1.875rem', /* 30px */
-      '4xl': '2.25rem', /* 36px */
-      '5xl': '3rem', /* 48px */
-      '6xl': '3.75rem', /* 60px */
-      '7xl': '4.5rem', /* 72px */
-      '8xl': '6rem', /* 96px */
-      '9xl': '8rem', /* 128px */
+      xs: '0.75rem' /* 12px */,
+      sm: '0.875rem' /* 14px */,
+      base: '1rem' /* 16px */,
+      md: '1rem' /* 16px */,
+      lg: '1.125rem' /* 18px */,
+      xl: '1.25rem' /* 20px */,
+      '2xl': '1.5rem' /* 24px */,
+      '3xl': '1.875rem' /* 30px */,
+      '4xl': '2.25rem' /* 36px */,
+      '5xl': '3rem' /* 48px */,
+      '6xl': '3.75rem' /* 60px */,
+      '7xl': '4.5rem' /* 72px */,
+      '8xl': '6rem' /* 96px */,
+      '9xl': '8rem' /* 128px */,
     },
     fontWeights: {
       hairline: 100,
@@ -99,14 +99,14 @@ const lightTheme = createTheme({
       semibold: 600,
       bold: 700,
       extrabold: 800,
-      black: 900
+      black: 900,
     },
     borderWeights: {
       light: '1px',
       normal: '2px',
       bold: '3px',
       extrabold: '4px',
-      black: '5px'
+      black: '5px',
     },
     spacing: {
       0: '0rem',
@@ -161,7 +161,7 @@ const lightTheme = createTheme({
       64: '16rem',
       72: '18rem',
       80: '20rem',
-      96: '24rem'
+      96: '24rem',
     },
     zIndices: {
       1: '100',
@@ -170,10 +170,10 @@ const lightTheme = createTheme({
       4: '400',
       5: '500',
       10: '1000',
-      max: '9999'
+      max: '9999',
     },
-  }
-})
+  },
+});
 
 const darkTheme = createTheme({
   type: 'dark',
@@ -219,38 +219,37 @@ const darkTheme = createTheme({
       text: '#ECEDEE',
       white: '#ffffff',
       secondary: '#9750DD',
-
     }, // optional
     shadows: {
       xs: '0 2px 8px 1px rgb(0 0 0 / 0.07), 0 1px 1px -1px rgb(0 0 0 / 0.04)',
       sm: '0 2px 8px 2px rgb(0 0 0 / 0.07), 0 2px 4px -1px rgb(0 0 0 / 0.04)',
       md: '0 12px 20px 6px rgb(0 0 0 / 0.08)',
       lg: '0 12px 34px 6px rgb(0 0 0 / 0.18)',
-      xl: '0 25px 65px 0px rgb(0 0 0 / 0.35)'
+      xl: '0 25px 65px 0px rgb(0 0 0 / 0.35)',
     },
-     // to use along with css dropShadow utility
+    // to use along with css dropShadow utility
     dropShadows: {
       xs: 'drop-shadow(0 2px 4px rgb(0 0 0 / 0.07)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.04))',
       sm: 'drop-shadow(0 2px 8px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 4px rgb(0 0 0 / 0.04))',
       md: 'drop-shadow(0 4px 12px rgb(0 0 0 / 0.08)) drop-shadow(0 20px 8px rgb(0 0 0 / 0.04))',
       lg: 'drop-shadow(0 12px 24px rgb(0 0 0 / 0.15)) drop-shadow(0 12px 14px rgb(0 0 0 / 0.1))',
-      xl: 'drop-shadow(0 25px 34px rgb(0 0 0 / 0.35))'
+      xl: 'drop-shadow(0 25px 34px rgb(0 0 0 / 0.35))',
     },
     fontSizes: {
-      xs: '0.75rem', /* 12px */
-      sm: '0.875rem', /* 14px */
-      base: '1rem', /* 16px */
-      md: '1rem', /* 16px */
-      lg: '1.125rem', /* 18px */
-      xl: '1.25rem', /* 20px */
-      '2xl': '1.5rem', /* 24px */
-      '3xl': '1.875rem', /* 30px */
-      '4xl': '2.25rem', /* 36px */
-      '5xl': '3rem', /* 48px */
-      '6xl': '3.75rem', /* 60px */
-      '7xl': '4.5rem', /* 72px */
-      '8xl': '6rem', /* 96px */
-      '9xl': '8rem', /* 128px */
+      xs: '0.75rem' /* 12px */,
+      sm: '0.875rem' /* 14px */,
+      base: '1rem' /* 16px */,
+      md: '1rem' /* 16px */,
+      lg: '1.125rem' /* 18px */,
+      xl: '1.25rem' /* 20px */,
+      '2xl': '1.5rem' /* 24px */,
+      '3xl': '1.875rem' /* 30px */,
+      '4xl': '2.25rem' /* 36px */,
+      '5xl': '3rem' /* 48px */,
+      '6xl': '3.75rem' /* 60px */,
+      '7xl': '4.5rem' /* 72px */,
+      '8xl': '6rem' /* 96px */,
+      '9xl': '8rem' /* 128px */,
     },
     fontWeights: {
       hairline: 100,
@@ -261,14 +260,14 @@ const darkTheme = createTheme({
       semibold: 600,
       bold: 700,
       extrabold: 800,
-      black: 900
+      black: 900,
     },
     borderWeights: {
       light: '1px',
       normal: '2px',
       bold: '3px',
       extrabold: '4px',
-      black: '5px'
+      black: '5px',
     },
     spacing: {
       0: '0rem',
@@ -323,7 +322,7 @@ const darkTheme = createTheme({
       64: '16rem',
       72: '18rem',
       80: '20rem',
-      96: '24rem'
+      96: '24rem',
     },
     zIndices: {
       1: '100',
@@ -332,43 +331,50 @@ const darkTheme = createTheme({
       4: '400',
       5: '500',
       10: '1000',
-      max: '9999'
+      max: '9999',
     },
-  }
-})
+  },
+});
 
-function MyApp({ Component, pageProps: {session, ...pageProps} }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
   const [isDark, setIsDark] = React.useState('dark');
   const [isOpen, setIsOpen] = React.useState(false);
   const [openLogin, setOpenLogin] = React.useState(false);
-  console.log('checking open login', openLogin)
+  console.log('checking open login', openLogin);
   React.useEffect(() => {
-    setIsDark(localStorage.getItem('theme'))
-})
+    const sessionUi = localStorage.getItem('ui-theme');
+    if (sessionUi) {
+      setIsDark(sessionUi);
+    }
+  });
 
   return (
     <SessionProvider session={session}>
       <NextThemesProvider
-      defaultTheme="system"
-      attribute="class"
-      value={{
-        light: lightTheme.className,
-        dark: darkTheme.className
-      }}
-    >
-      <NextUIProvider>
-        <Provider store={store}>
-          {router.pathname !== '/404' ?
-          <Nav openLogin={setIsOpen} /> : ''}
-          <CreateAccountModal isOpen={isOpen} />
-          <Component className={`${isDark === 'dark' ? 'dark' : ''}`} {...pageProps} />
-        </Provider>
-        <Analytics />
-      </NextUIProvider>
-    </NextThemesProvider>
-  </SessionProvider>
-  )
+        defaultTheme='system'
+        attribute='class'
+        value={{
+          light: lightTheme.className,
+          dark: darkTheme.className,
+        }}
+      >
+        <NextUIProvider>
+          <Provider store={store}>
+            <ErrorBoundary>
+              {router.pathname !== '/404' ? <Nav openLogin={setIsOpen} /> : ''}
+              <CreateAccountModal isOpen={isOpen} />
+              <Component
+                className={`${isDark === 'dark' ? 'dark' : ''}`}
+                {...pageProps}
+              />
+            </ErrorBoundary>
+          </Provider>
+          <Analytics />
+        </NextUIProvider>
+      </NextThemesProvider>
+    </SessionProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
