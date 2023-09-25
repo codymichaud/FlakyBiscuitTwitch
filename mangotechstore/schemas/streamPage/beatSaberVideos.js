@@ -1,9 +1,9 @@
 import { defineField, defineType } from 'sanity';
 
 export default {
-  name: 'eighthStreamBox',
+  name: 'beatSaberVideos',
   type: 'document',
-  title: 'Eighth Stream Box',
+  title: 'Beat Saber',
   fields: [
     {
       name: 'eighthGameImg',

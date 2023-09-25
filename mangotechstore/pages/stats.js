@@ -17,7 +17,7 @@ import axios from 'axios';
 // import history from "history";
 import { streamImage } from '../../mangotechstore/public/mq3.jpg';
 import { createClient } from 'next-sanity';
-import { dispatch as useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import channelInfoSlice from '../slices/channelInfoSlice';
 import { fetchChannelInfo } from '../slices/channelInfoSlice';
 import { fetchUserInfo } from '../slices/userInfoSlice';
@@ -35,33 +35,26 @@ import {
   fetchUserInfoRejected,
 } from '../slices/userInfoSlice';
 
-export class Stats extends Component {
-  constructor(props) {
-    super(props);
-    // this.latestStream = this.latestStream.bind(this);
-    // this.streamGoals = this.streamGoals.bind(this);
-  }
-  static propTypes = {
-    channelInfo: PropTypes.object.isRequired,
-    streamInfo: PropTypes.object.isRequired,
-    userInfo: PropTypes.object.isRequired,
-  };
-  state = {
-    channelName: 'Flaky Biscuit',
-    streams: null,
-    streamFollowers: null,
-    error: false,
-    loading: false,
-  };
+export default function Stats({ channelInfo }) {
+  // state = {
+  //   channelName: 'Flaky Biscuit',
+  //   streams: null,
+  //   streamFollowers: null,
+  //   error: false,
+  //   loading: false,
+  // };
 
-  // const dispatch = useDispatch();
+
+  const dispatch = useDispatch();
   // const channelInfo = useSelector(state => state.channelInfo);
-  // const userInfo = useSelector(state => state.userInfo);
-  // const error = useSelector(state => state.channelInfo);
-  // const loading = useSelector(state => state.channelInfo);
-  // const data = useSelector(state => state.channelInfo);
+  const userInfo = useSelector(state => state.userInfo);
+  const error = useSelector(state => state.channelInfo);
+  const loading = useSelector(state => state.channelInfo);
+  const data = useSelector(state => state.channelInfo);
 
-  // React.useEffect(() => {
+  // console.log('channelInfo', channelInfo);
+
+  React.useEffect(() => {
   //     const getChannelInfo = axios.get(`https://api.twitch.tv/helix/channels?broadcaster_id=${channelID}`,
   //   {
   //     headers: {
@@ -69,61 +62,62 @@ export class Stats extends Component {
   //         'Client-Id': `${clientID}`,
   //     }
   // })
-  //   getChannelInfo.then(response => {
-  //       console.log('what is this response?', response.data.data[0])
-  //       dispatch(storeData(response.data.data[0]));
-  //   })
-  //     console.log('this is checking info', channelInfo);
-  // }, []);
-  // console.log('this is checking info??', channelInfo.channelInfo.payload.broadcaster_language);
+   
+        dispatch(fetchChannelInfo())
+          console.log('checking res', channelInfo)
+          // console.log('this is checking info', res.payload);
+          // const payload = res.payload;
+          // const name = useSelector(payload => payload.broadcaster_name);
+          // console.log('this is checking info??', channelInfo, name);
+  }, []);
 
-  componentDidMount() {
-    const { fetchChannelInfo, fetchUserInfo, fetchStreamInfo, channelInfo } =
-      this.props;
-    // console.log('clientID', clientID);
-    fetchChannelInfo()
-      .then(res => {
-        if (res.type === 'fetchChannelInfo/fulfilled') {
-          console.log('Channel info loaded:', res.payload);
-          fetchChannelInfoFulfilled(res.payload);
-        } else if (res.type === 'fetchChannelInfo/rejected') {
-          console.error('Failed to load channel info:', res.payload);
-          fetchChannelInfoRejected(res.payload);
-        }
-      })
-      .catch(error => {
-        console.error('Error while loading channel info:', error);
-      });
-    // console.log('does this work?', channelInfo)
+  // componentDidMount() {
+  //   const { fetchChannelInfo, fetchUserInfo, fetchStreamInfo, channelInfo } =
+  //     this.props;
+  //   // console.log('clientID', clientID);
+  //   fetchChannelInfo()
+  //     .then(res => {
+  //       if (res.type === 'fetchChannelInfo/fulfilled') {
+  //         console.log('Channel info loaded:', res.payload);
+  //         fetchChannelInfoFulfilled(res.payload);
+  //       } else if (res.type === 'fetchChannelInfo/rejected') {
+  //         console.error('Failed to load channel info:', res.payload);
+  //         fetchChannelInfoRejected(res.payload);
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error('Error while loading channel info:', error);
+  //     });
+  //   // console.log('does this work?', channelInfo)
 
-    fetchUserInfo()
-      .then(res => {
-        if (res.type === 'fetchUserInfo/fulfilled') {
-          console.log('Channel info loaded:', res.payload);
-          fetchUserInfoFulfilled(res.payload);
-        } else if (res.type === 'fetchUserInfo/rejected') {
-          console.error('Failed to load channel info:', res.payload);
-          fetchUserInfoRejected(res.payload);
-        }
-      })
-      .catch(error => {
-        console.error('Error while loading channel info:', error);
-      });
+  //   fetchUserInfo()
+  //     .then(res => {
+  //       if (res.type === 'fetchUserInfo/fulfilled') {
+  //         console.log('Channel info loaded:', res.payload);
+  //         fetchUserInfoFulfilled(res.payload);
+  //       } else if (res.type === 'fetchUserInfo/rejected') {
+  //         console.error('Failed to load channel info:', res.payload);
+  //         fetchUserInfoRejected(res.payload);
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error('Error while loading channel info:', error);
+  //     });
 
-    fetchStreamInfo()
-      .then(res => {
-        if (res.type === 'fetchStreamInfo/fulfilled') {
-          console.log('Channel info loaded:', res.payload);
-          fetchStreamInfoFulfilled(res.payload);
-        } else if (res.type === 'fetchStreamInfo/rejected') {
-          console.error('Failed to load channel info:', res.payload);
-          fetchStreamInfoRejected(res.payload);
-        }
-      })
-      .catch(error => {
-        console.error('Error while loading channel info:', error);
-      });
-  }
+  //   fetchStreamInfo()
+  //     .then(res => {
+  //       if (res.type === 'fetchStreamInfo/fulfilled') {
+  //         console.log('Channel info loaded:', res.payload);
+  //         fetchStreamInfoFulfilled(res.payload);
+  //       } else if (res.type === 'fetchStreamInfo/rejected') {
+  //         console.error('Failed to load channel info:', res.payload);
+  //         fetchStreamInfoRejected(res.payload);
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error('Error while loading channel info:', error);
+  //     });
+  // }
 
   //   if (loading) return <p>Loading...</p>;
   //   if (error) return <p>Error: {error.message}</p>;
@@ -163,7 +157,7 @@ export class Stats extends Component {
   //     }
   // }, [])
 
-  latestStream() {
+  const latestStream = () => {
     const { streamInfo } = this.props;
 
     const { streams } = this.state;
@@ -265,73 +259,56 @@ export class Stats extends Component {
   //     )
   //    }
 
-  render() {
-    const { channelInfo, streamInfo } = this.props;
-    // console.log('in render', this.props.channelInfo)
-    return (
-      <div className={styles.homePage}>
-        <Grid.Container justify='center'>
-          <Grid xs={4}>
-            <Card
-              css={{
-                mt: '2.5rem',
-                ml: '2.5rem',
-                mr: '2.5rem',
-                height: '25rem',
-              }}
+  // const { channelInfo, streamInfo } = this.props;
+  // console.log('in render', this.props.channelInfo)
+  return (
+    <div className={styles.homePage}>
+      <Grid.Container justify='center'>
+        <Grid xs={4}>
+          <Card
+            css={{
+              mt: '2.5rem',
+              ml: '2.5rem',
+              mr: '2.5rem',
+              height: '25rem',
+            }}
+          >
+            <Card.Header
+              css={{ position: 'absolute', zIndex: 1, top: 5, ml: '2px' }}
             >
-              <Card.Header
-                css={{ position: 'absolute', zIndex: 1, top: 5, ml: '2px' }}
-              >
-                <Col>
-                  <Text
-                    className='text-base'
-                    size={12}
-                    weight='bold'
-                    transform='uppercase'
-                    color='#white'
-                  >
-                    Welcome to
-                  </Text>
-                  <Text
-                    className='text-4xl'
-                    h3
-                    css={{
-                      textGradient: '45deg, $white -10%, $red600 50%',
-                    }}
-                    weight='bold'
-                  >
-                    {this.state.channelName}
-                  </Text>
-                </Col>
-              </Card.Header>
-              <Card.Body></Card.Body>
-            </Card>
-          </Grid>
-          <Grid xs={4}>{this.latestStream()}</Grid>
-          {/*<Grid xs={4}>
-                        {this.streamGoals()}
-                    </Grid> */}
-        </Grid.Container>
-      </div>
-    );
-  }
+              <Col>
+                <Text
+                  className='text-base'
+                  size={12}
+                  weight='bold'
+                  transform='uppercase'
+                  color='#white'
+                >
+                  Welcome to
+                </Text>
+                <Text
+                  className='text-4xl'
+                  h3
+                  css={{
+                    textGradient: '45deg, $white -10%, $red600 50%',
+                  }}
+                  weight='bold'
+                >
+                  {/* {this.state.channelName} */}
+                </Text>
+              </Col>
+            </Card.Header>
+            <Card.Body></Card.Body>
+          </Card>
+        </Grid>
+        {/* <Grid xs={4}>{this.latestStream()}</Grid> */}
+        {/*<Grid xs={4}>
+                      {this.streamGoals()}
+                  </Grid> */}
+      </Grid.Container>
+    </div>
+  );
 }
-
-// export default Stats;
-const mapStateToProps = state => ({
-  channelInfo: state.channelInfo,
-  userInfo: state.userInfo,
-  streamInfo: state.streamInfo,
-});
-
-const mapDispatchToProps = {
-  fetchChannelInfo,
-  fetchUserInfo,
-  fetchStreamInfo,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Stats);
 
 Stats.propTypes = {
   wangChungs: PropTypes.array,

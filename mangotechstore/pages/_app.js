@@ -13,6 +13,9 @@ import { useRouter } from 'next/router';
 import { SessionProvider } from 'next-auth/react';
 import CreateAccountModal from '../components/loginModal';
 import ErrorBoundary from '../components/ErrorBoundary';
+import Footer from '../components/Footer';
+
+import styles from '../styles/Nav.module.css';
 
 config.autoAddCss = false;
 
@@ -342,6 +345,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [openLogin, setOpenLogin] = React.useState(false);
   console.log('checking open login', openLogin);
+
+  // React.useEffect(() => {
+  //   console.log('checking window', window)
+  // }, []) <-- How to use window inside nextjs
+
   React.useEffect(() => {
     const sessionUi = localStorage.getItem('ui-theme');
     if (sessionUi) {
@@ -368,6 +376,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                 className={`${isDark === 'dark' ? 'dark' : ''}`}
                 {...pageProps}
               />
+              <footer className={styles.footer}>
+                <Footer />
+              </footer>
             </ErrorBoundary>
           </Provider>
           <Analytics />
