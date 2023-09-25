@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import Nav from '../components/Nav';
+import { Image, Text, Grid } from '@nextui-org/react';
+import YouTube from 'react-youtube';
 
-export class Links extends Component {
-  constructor(props) {
-    super(props);
-  }
+export default function Links() {
+  const options = {
+    height: '390',
+    width: '640',
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+  };
 
-  render() {
-    return (
-      <div>
-        <h1>Links</h1>
-      </div>
-    );
-  }
+
+  return (
+  <div>
+    
+  </div>
+  );
 }
 
-export default Links;
+

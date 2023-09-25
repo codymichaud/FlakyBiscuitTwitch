@@ -15,6 +15,7 @@ module.exports = {
         'alpha-tauri-white': '#FEFDFC',
         'aston-martin-green': '#01525E',
         'romeo-red': '#D11040',
+        'williams-blue': '#17A9EE',
       },
     },
   },

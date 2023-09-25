@@ -1,9 +1,9 @@
 import { defineField, defineType } from 'sanity';
 
 export default {
-  name: 'ninthStreamBox',
+  name: 'granTurismoVideos',
   type: 'document',
-  title: 'Ninth Stream Box',
+  title: 'Gran Turismo',
   fields: [
     {
       name: 'ninthGameImg',

@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
 import { Image, Popover, Button, Text, Collapse } from '@nextui-org/react';
 import styles from '../../styles/f1.module.css';
+import F1Popper from '../../components/f1Popper';
 
-export class F1 extends Component {
-  constructor(props) {
-    super(props);
-    this.handleCarSwitcher = this.handleCarSwitcher.bind(this);
-    this.handleTeamSelect = this.handleTeamSelect.bind(this);
-  }
-  state = {
-    team: 'Merc',
-  };
+export default function F1() {
+  const [team, setTeam] = React.useState('Merc');
 
-  handleTeamSelect(team) {
-    this.setState({ team: team });
+  const handleTeamSelect = (team) => {
+    setTeam(team)
   }
 
-  handleCarSwitcher() {
-    const { team } = this.state;
+  const handleCarSwitcher = () => {
+    
     console.log('vat team', team);
 
     switch (team) {
@@ -137,7 +131,7 @@ export class F1 extends Component {
             <div className='absolute z-10'>
               <Popover>
                 <Popover.Trigger>
-                  <Button className='bg-tifosi-red'>Click me</Button>
+                  <Button className='bg-alpha-tauri-white text-black'>Click me</Button>
                 </Popover.Trigger>
                 <Popover.Content>
                   <Text className='p-3'>Popover content</Text>
@@ -159,7 +153,7 @@ export class F1 extends Component {
             <div className='absolute z-10'>
               <Popover>
                 <Popover.Trigger>
-                  <Button className='bg-alpha-tauri-white'>Click me</Button>
+                  <Button className='bg-aston-martin-green'>Click me</Button>
                 </Popover.Trigger>
                 <Popover.Content>
                   <Text className='p-3'>Popover content</Text>
@@ -203,7 +197,7 @@ export class F1 extends Component {
             <div className='absolute z-10'>
               <Popover>
                 <Popover.Trigger>
-                  <Button className='bg-tifosi-red'>Click me</Button>
+                  <Button className='bg-williams-blue'>Click me</Button>
                 </Popover.Trigger>
                 <Popover.Content>
                   <Text className='p-3'>Popover content</Text>
@@ -225,14 +219,14 @@ export class F1 extends Component {
             <div className='absolute z-10'>
               <Popover>
                 <Popover.Trigger>
-                  <Button className='bg-tifosi-red'>Click me</Button>
+                  <Button className='bg-white text-black'>Click me</Button>
                 </Popover.Trigger>
                 <Popover.Content>
                   <Text className='p-3'>Popover content</Text>
                 </Popover.Content>
               </Popover>
               <Image
-                src='/Images/alpine-a522.jpeg'
+                src='/Images/vf23-haas.jpeg'
                 layout='fill'
                 objectFit='cover'
                 quality={100}
@@ -246,82 +240,82 @@ export class F1 extends Component {
     }
   }
 
-  render() {
     return (
       <div className='streams__f1-page'>
-        {/* <Collapse.Group> */}
-        <Collapse
+        <F1Popper />
+        {/* <Collapse.Group> 
+         <Collapse
           title='Pick your Team'
           subtitle='Pick your favorite team to see some cool stats'
         >
+          <Text>Test?</Text>
           <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6'>
             <Button
               className='bg-merc-blue'
-              onClick={() => this.handleTeamSelect('Merc')}
+              onClick={() => handleTeamSelect('Merc')}
             >
               Mercedes
             </Button>
             <Button
               className='bg-tifosi-red'
-              onClick={() => this.handleTeamSelect('Ferrari')}
+              onClick={() => handleTeamSelect('Ferrari')}
             >
               Ferrari
             </Button>
             <Button
               className='bg-redbull-blue'
-              onClick={() => this.handleTeamSelect('RedBull')}
+              onClick={() => handleTeamSelect('RedBull')}
             >
               Red Bull
             </Button>
             <Button
               className='bg-mclaren-orange'
-              onClick={() => this.handleTeamSelect('McLaren')}
+              onClick={() => handleTeamSelect('McLaren')}
             >
               McLaren
             </Button>
             <Button
               className='bg-alpine-blue'
-              onClick={() => this.handleTeamSelect('Alpine')}
+              onClick={() => handleTeamSelect('Alpine')}
             >
               Alpine
             </Button>
             <Button
               className='bg-alpha-tauri-white text-black'
-              onClick={() => this.handleTeamSelect('AlphaTauri')}
+              onClick={() => handleTeamSelect('AlphaTauri')}
             >
               Alpha Tauri
             </Button>
             <Button
               className='bg-aston-martin-green'
-              onClick={() => this.handleTeamSelect('AstonMartin')}
+              onClick={() => handleTeamSelect('AstonMartin')}
             >
               Aston Martin
             </Button>
             <Button
               className='bg-romeo-red'
-              onClick={() => this.handleTeamSelect('AlfaRomeo')}
+              onClick={() => handleTeamSelect('AlfaRomeo')}
             >
               Alfa Romeo
             </Button>
             <Button
-              className='bg-tifosi-red'
-              onClick={() => this.handleTeamSelect('Williams')}
+              className='bg-williams-blue'
+              onClick={() => handleTeamSelect('Williams')}
             >
               Williams
             </Button>
             <Button
-              className='bg-tifosi-red'
-              onClick={() => this.handleTeamSelect('Haas')}
+              className='bg-white text-black'
+              onClick={() => handleTeamSelect('Haas')}
             >
               Haas
             </Button>
           </div>
         </Collapse>
-        {/* </Collapse.Group> */}
-        {this.handleCarSwitcher()}
+        <
+        </Collapse.Group> */}
+        {handleCarSwitcher()}
       </div>
     );
   }
-}
 
-export default F1;

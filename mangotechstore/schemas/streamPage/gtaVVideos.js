@@ -1,9 +1,9 @@
 import { defineField, defineType } from 'sanity';
 
 export default {
-  name: 'sixthStreamBox',
+  name: 'gtaVVideos',
   type: 'document',
-  title: 'Sixth Stream Box',
+  title: 'GTA V',
   fields: [
     {
       name: 'sixthGameImg',

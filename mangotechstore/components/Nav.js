@@ -47,8 +47,6 @@ export default function Nav({ openLogin }) {
   const didMountRef = useRef(false);
   const { setTheme } = useNextTheme();
 
-  console.log('checking didMountRef', didMountRef);
-
   React.useEffect(() => {
     if (didMountRef.current) {
       if (session) {
@@ -57,7 +55,9 @@ export default function Nav({ openLogin }) {
         setUserEmail(session.user.email);
       }
     } else didMountRef.current = true;
-  });
+  }, []);
+
+  
 
   const state = {
     variant: 'static',
